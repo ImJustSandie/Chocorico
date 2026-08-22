@@ -26,6 +26,7 @@ public class EnergyManager : MonoBehaviour
 
     private float currentEnergy;
     private float debuffTimer = 0f;
+    private float drainPauseTimer = 0f;
     private bool isGameStarted = false;
 
     /// <summary>
@@ -56,8 +57,13 @@ public class EnergyManager : MonoBehaviour
 
     void Update()
     {
+        if (drainPauseTimer > 0f)
+        {
+            drainPauseTimer -= Time.deltaTime;
+        }
+
         // Solo drenar energía pasiva una vez que el jugador inicia la partida
-        if (isGameStarted && currentEnergy > 0f)
+        if (isGameStarted && currentEnergy > 0f && drainPauseTimer <= 0f)
         {
             currentEnergy -= passiveDrainPerSecond * Time.deltaTime;
             currentEnergy = Mathf.Max(currentEnergy, 0f);
@@ -123,12 +129,33 @@ public class EnergyManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Pausa el drenaje pasivo de energía durante la duración especificada.
+    /// </summary>
+    public void PauseDrain(float duration)
+    {
+        drainPauseTimer = duration;
+        Debug.Log($"Drenaje de energía pausado por {duration} segundos.");
+    }
+
+    /// <summary>
+    /// Drena energía directamente (usado por objetos dañinos como púas).
+    /// </summary>
+    public void DrainEnergy(float amount)
+    {
+        currentEnergy -= amount;
+        currentEnergy = Mathf.Max(currentEnergy, 0f);
+        UpdateEnergyBar();
+        Debug.Log($"Energía drenada (-{amount}). Restante: {currentEnergy}");
+    }
+
+    /// <summary>
     /// Restaura la energía al máximo.
     /// </summary>
     public void ResetEnergy()
     {
         currentEnergy = maxEnergy;
         debuffTimer = 0f;
+        drainPauseTimer = 0f;
         UpdateEnergyBar();
     }
 

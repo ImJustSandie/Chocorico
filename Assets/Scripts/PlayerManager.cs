@@ -15,7 +15,8 @@ public class PlayerManager : MonoBehaviour
         Idle,      // Quieto en la pared, esperando el primer toque
         Clinging,  // Pegado a una pared, deslizándose
         Jumping,   // En el aire, moviéndose hacia la pared opuesta
-        Falling    // Sin energía, cayendo
+        Falling,   // Sin energía, cayendo
+        Bouncing   // Rebotando tras golpear púas en el aire
     }
 
     private enum WallSide
@@ -48,6 +49,9 @@ public class PlayerManager : MonoBehaviour
     private EnergyManager energyManager;
     private PlayerState currentState;
     private WallSide currentWall;
+    private float bounceTimer = 0f;
+    private float bounceHorizontalDir = 0f;
+    private float bounceForce = 0f;
 
     void Start()
     {
@@ -114,6 +118,20 @@ public class PlayerManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (currentState == PlayerState.Bouncing)
+        {
+            bounceTimer -= Time.fixedDeltaTime;
+            rb.linearVelocity = new Vector2(bounceHorizontalDir * bounceForce, 0f);
+
+            if (bounceTimer <= 0f)
+            {
+                // Continúa avanzando en dirección contraria a las púas (de vuelta a la pared de origen)
+                currentState = PlayerState.Jumping;
+                rb.linearVelocity = new Vector2(bounceHorizontalDir * jumpForceX, 0f);
+            }
+            return;
+        }
+
         // Si se agota la energía pasivamente durante el juego, el jugador cae
         if (currentState != PlayerState.Idle && currentState != PlayerState.Falling && !energyManager.HasEnergy)
         {
@@ -207,5 +225,20 @@ public class PlayerManager : MonoBehaviour
             ApplyWallSlide();
             Debug.Log("Pegado a la pared derecha");
         }
+    }
+
+    public bool IsInAirState()
+    {
+        return currentState == PlayerState.Jumping || currentState == PlayerState.Falling || currentState == PlayerState.Bouncing;
+    }
+
+    public void ApplyBounce(float horizontalDir, float force, float duration)
+    {
+        currentState = PlayerState.Bouncing;
+        bounceHorizontalDir = horizontalDir;
+        bounceForce = force;
+        bounceTimer = duration;
+        rb.linearVelocity = new Vector2(horizontalDir * force, 0f);
+        Debug.Log("Rebote de púas aplicado");
     }
 }
