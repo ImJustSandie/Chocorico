@@ -153,7 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AguardienteItem
   moveSpeed: 3
   tier: 0
-  tier1Color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  tier1Color: {r: 1, g: 0.035848916, b: 0.035848916, a: 1}
   tier2Color: {r: 0, g: 0, b: 1, a: 1}
   tier3Color: {r: 0, g: 1, b: 0, a: 1}
   tier1Duration: 2
