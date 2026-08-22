@@ -362,10 +362,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbdbf47a3244b8f4790c108dfaeda9ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerManager
-  jumpForceX: 8
-  jumpArcForce: 10
+  jumpForceX: 4
+  jumpInitialForceY: 3
+  jumpArcGravity: 6
   wallSlideSpeed: 3
   leftWallGoesUp: 1
+  enableCancelJump: 1
   startOnLeftWall: 1
 --- !u!23 &427851010
 MeshRenderer:
@@ -453,6 +455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnergyManager
   maxEnergy: 100
   passiveDrainPerSecond: 5
+  cancelJumpBaseCost: 10
   jumpDrainOnDebuff: 15
   jumpDrainDebuffDuration: 3
   energyBar: {fileID: 1184072818}

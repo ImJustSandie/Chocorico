@@ -154,6 +154,8 @@ MonoBehaviour:
   itemType: 0
   energyToRestore: 25
   fallSpeed: 2
+  positiveSprite: {fileID: 21300000, guid: e0ee4ffc758192145aa7ec63b782895b, type: 3}
+  negativeSprite: {fileID: 21300000, guid: 08c6ac598a72ba24db801504e90a9f51, type: 3}
   positiveColor: {r: 0.2, g: 0.9, b: 0.2, a: 1}
   negativeColor: {r: 0.9, g: 0.2, b: 0.2, a: 1}
   destroyOnCollect: 1

@@ -14,6 +14,9 @@ public class EnergyManager : MonoBehaviour
     [Tooltip("Energía que se consume pasivamente cada segundo")]
     [SerializeField] private float passiveDrainPerSecond = 5f;
 
+    [Tooltip("Energía base que consume cancelar un salto en el aire")]
+    [SerializeField] private float cancelJumpBaseCost = 10f;
+
     [Tooltip("Energía que consume el salto SOLO durante el estado negativo")]
     [SerializeField] private float jumpDrainOnDebuff = 15f;
 
@@ -106,6 +109,29 @@ public class EnergyManager : MonoBehaviour
             Debug.Log($"[Debuff Activo] Salto costó {jumpDrainOnDebuff} de energía. Restante: {currentEnergy}");
         }
 
+        return true;
+    }
+
+    /// <summary>
+    /// Verifica y consume la energía necesaria para cancelar el salto en el aire y devolverse a la pared de origen.
+    /// Si está bajo el efecto negativo (Gansito), consume el doble de energía.
+    /// </summary>
+    public bool TryConsumeCancelJumpEnergy()
+    {
+        if (currentEnergy <= 0f)
+        {
+            Debug.Log("¡Sin energía! No se puede cancelar el salto.");
+            return false;
+        }
+
+        // Costo base, o el doble si tiene el debuff del Gansito activo
+        float cost = IsJumpDrainActive ? (cancelJumpBaseCost * 2f) : cancelJumpBaseCost;
+
+        currentEnergy -= cost;
+        currentEnergy = Mathf.Max(currentEnergy, 0f);
+        UpdateEnergyBar();
+
+        Debug.Log($"[Cancel Jump] Consumió {cost} de energía (Debuff Gansito: {IsJumpDrainActive}). Restante: {currentEnergy}");
         return true;
     }
 

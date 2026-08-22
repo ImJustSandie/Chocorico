@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class PuaObject : WallObject
 {
+    [Header("Sprites")]
+    [Tooltip("Sprite opcional para las púas")]
+    [SerializeField] private Sprite puaSprite;
+
     [Header("Púas")]
     [SerializeField] private Color puaColor = new Color(0.4f, 0.05f, 0.05f);
     [SerializeField] private float damageAmount = 5f;
@@ -13,6 +17,10 @@ public class PuaObject : WallObject
     public void SetPuaColor(Color color)
     {
         puaColor = color;
+        if (spriteRenderer != null && puaSprite == null)
+        {
+            spriteRenderer.color = puaColor;
+        }
     }
 
     void Start()
@@ -22,7 +30,15 @@ public class PuaObject : WallObject
 
         if (spriteRenderer != null)
         {
-            spriteRenderer.color = puaColor;
+            if (puaSprite != null)
+            {
+                spriteRenderer.sprite = puaSprite;
+                spriteRenderer.color = Color.white;
+            }
+            else
+            {
+                spriteRenderer.color = puaColor;
+            }
         }
     }
 

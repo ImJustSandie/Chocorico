@@ -26,7 +26,13 @@ public class EnergyItem : MonoBehaviour
     [Tooltip("Velocidad de caída del objeto")]
     [SerializeField] private float fallSpeed = 3f;
 
-    [Header("Colores")]
+    [Header("Sprites por Tipo")]
+    [Tooltip("Sprite para el ítem Positivo (ej. Chocorramo)")]
+    [SerializeField] private Sprite positiveSprite;
+    [Tooltip("Sprite para el ítem Negativo (ej. Gansito)")]
+    [SerializeField] private Sprite negativeSprite;
+
+    [Header("Colores (Fallback si no hay sprite)")]
     [SerializeField] private Color positiveColor = new Color(0.2f, 0.9f, 0.2f); // Verde
     [SerializeField] private Color negativeColor = new Color(0.9f, 0.2f, 0.2f); // Rojo
 
@@ -39,7 +45,7 @@ public class EnergyItem : MonoBehaviour
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        ApplyColor();
+        ApplyVisuals();
     }
 
     void Update()
@@ -60,20 +66,29 @@ public class EnergyItem : MonoBehaviour
     public void SetItemType(ItemType type)
     {
         itemType = type;
-        ApplyColor();
+        ApplyVisuals();
     }
 
     /// <summary>
-    /// Aplica el color correspondiente en el SpriteRenderer.
+    /// Aplica el sprite o color correspondiente en el SpriteRenderer.
     /// </summary>
-    private void ApplyColor()
+    private void ApplyVisuals()
     {
         if (spriteRenderer == null)
             spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (spriteRenderer != null)
         {
-            spriteRenderer.color = (itemType == ItemType.Positive) ? positiveColor : negativeColor;
+            Sprite targetSprite = (itemType == ItemType.Positive) ? positiveSprite : negativeSprite;
+            if (targetSprite != null)
+            {
+                spriteRenderer.sprite = targetSprite;
+                spriteRenderer.color = Color.white; // Respetar colores originales de la imagen
+            }
+            else
+            {
+                spriteRenderer.color = (itemType == ItemType.Positive) ? positiveColor : negativeColor;
+            }
         }
     }
 

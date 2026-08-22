@@ -30,8 +30,11 @@ public class PlayerManager : MonoBehaviour
     [Tooltip("Fuerza horizontal del salto hacia la pared opuesta")]
     [SerializeField] private float jumpForceX = 8f;
 
-    [Tooltip("Curvatura vertical durante el salto (fuerza de la semi-parábola hacia arriba o abajo)")]
-    [SerializeField] private float jumpArcForce = 4f;
+    [Tooltip("Fuerza o impulso vertical inicial del salto (en la dirección del movimiento de la pared actual)")]
+    [SerializeField] private float jumpInitialForceY = 6f;
+
+    [Tooltip("Fuerza de arco/gravedad opuesta durante el salto que crea la parábola")]
+    [SerializeField] private float jumpArcGravity = 12f;
 
     [Tooltip("Velocidad de deslizamiento al estar pegado a la pared")]
     [SerializeField] private float wallSlideSpeed = 3f;
@@ -39,6 +42,10 @@ public class PlayerManager : MonoBehaviour
     [Header("Dirección de las paredes")]
     [Tooltip("Si es true, la pared izquierda mueve hacia arriba. Si es false, mueve hacia abajo.")]
     [SerializeField] private bool leftWallGoesUp = true;
+
+    [Header("Mecánicas Opcionales / Testing")]
+    [Tooltip("Permite cancelar el salto en el aire devolviéndose a la pared de origen a cambio de energía")]
+    [SerializeField] private bool enableCancelJump = true;
 
     [Header("Inicio")]
     [Tooltip("Si es true, el personaje empieza pegado a la pared izquierda")]
@@ -90,10 +97,6 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
-        // Solo procesar toques si está quieto o pegado a la pared
-        if (currentState != PlayerState.Clinging && currentState != PlayerState.Idle)
-            return;
-
         foreach (var touch in Touch.activeTouches)
         {
             if (touch.phase != UnityEngine.InputSystem.TouchPhase.Began)
@@ -101,17 +104,37 @@ public class PlayerManager : MonoBehaviour
 
             bool touchedRight = touch.screenPosition.x > Screen.width / 2f;
 
-            // Si está en la pared izquierda, solo salta si toca el lado DERECHO
-            if (currentWall == WallSide.Left && touchedRight)
+            // 1. Si está en la pared (Idle o Clinging): Salto hacia la pared opuesta
+            if (currentState == PlayerState.Clinging || currentState == PlayerState.Idle)
             {
-                Jump();
-                break;
+                // Si está en la pared izquierda, solo salta si toca el lado DERECHO
+                if (currentWall == WallSide.Left && touchedRight)
+                {
+                    Jump();
+                    break;
+                }
+                // Si está en la pared derecha, solo salta si toca el lado IZQUIERDO
+                else if (currentWall == WallSide.Right && !touchedRight)
+                {
+                    Jump();
+                    break;
+                }
             }
-            // Si está en la pared derecha, solo salta si toca el lado IZQUIERDO
-            else if (currentWall == WallSide.Right && !touchedRight)
+            // 2. Si está en medio de un salto (Jumping): Cancelar y devolverse a la pared de la que salió (si está habilitado)
+            else if (enableCancelJump && currentState == PlayerState.Jumping)
             {
-                Jump();
-                break;
+                // Si saltó desde la izquierda y toca la IZQUIERDA -> vuelve a la izquierda
+                if (currentWall == WallSide.Left && !touchedRight)
+                {
+                    CancelJump();
+                    break;
+                }
+                // Si saltó desde la derecha y toca la DERECHA -> vuelve a la derecha
+                else if (currentWall == WallSide.Right && touchedRight)
+                {
+                    CancelJump();
+                    break;
+                }
             }
         }
     }
@@ -141,16 +164,16 @@ public class PlayerManager : MonoBehaviour
             Debug.Log("¡Energía agotada! El jugador cae.");
         }
 
-        // Aplicar curvatura vertical (semi-parábola) mientras está en el aire saltando
+        // Aplicar curvatura de parábola mientras está en el aire saltando
         if (currentState == PlayerState.Jumping)
         {
-            // Determinar si en la pared actual se iba hacia arriba o hacia abajo
+            // Determinar la dirección inicial del salto según la pared de la que salió
             float verticalDir = (currentWall == WallSide.Left) 
                 ? (leftWallGoesUp ? 1f : -1f) 
                 : (leftWallGoesUp ? -1f : 1f);
 
-            // Aumentar progresivamente la velocidad vertical en la dirección correspondiente
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y + (verticalDir * jumpArcForce * Time.fixedDeltaTime));
+            // Reducir progresivamente el impulso inicial para formar la parábola (fuerza en sentido contrario)
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y - (verticalDir * jumpArcGravity * Time.fixedDeltaTime));
         }
 
         // Delegar la verificación de límites al GameManager
@@ -181,10 +204,39 @@ public class PlayerManager : MonoBehaviour
         currentState = PlayerState.Jumping;
 
         float horizontalDir = (currentWall == WallSide.Left) ? 1f : -1f;
-        // Inicia el salto con velocidad vertical en 0 y se curva hacia arriba/abajo en FixedUpdate
-        rb.linearVelocity = new Vector2(horizontalDir * jumpForceX, 0f);
+        float verticalDir = (currentWall == WallSide.Left) 
+            ? (leftWallGoesUp ? 1f : -1f) 
+            : (leftWallGoesUp ? -1f : 1f);
+
+        // Inicia el salto con velocidad horizontal y un impulso vertical inicial según la dirección de la pared
+        rb.linearVelocity = new Vector2(horizontalDir * jumpForceX, verticalDir * jumpInitialForceY);
 
         Debug.Log(currentWall == WallSide.Left ? "Salto hacia la derecha" : "Salto hacia la izquierda");
+    }
+
+    /// <summary>
+    /// Cancela el salto en el aire devolviendo al jugador hacia la pared de la que salió.
+    /// Consume energía (el doble si está activo el debuff del Gansito).
+    /// </summary>
+    private void CancelJump()
+    {
+        // Consumir energía de cancelación
+        if (!energyManager.TryConsumeCancelJumpEnergy())
+        {
+            // Sin energía: el jugador cae
+            currentState = PlayerState.Falling;
+            float fallGravity = GameManager.Instance != null ? GameManager.Instance.FallGravity : 5f;
+            rb.linearVelocity = new Vector2(0f, -fallGravity);
+            return;
+        }
+
+        // Dirección de regreso hacia la pared de origen
+        float returnHorizontalDir = (currentWall == WallSide.Left) ? -1f : 1f;
+
+        // Invertir la velocidad horizontal hacia la pared de origen, conservando la velocidad vertical actual
+        rb.linearVelocity = new Vector2(returnHorizontalDir * jumpForceX, rb.linearVelocity.y);
+
+        Debug.Log($"Salto cancelado: regresando a la pared {currentWall}");
     }
 
     /// <summary>
