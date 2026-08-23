@@ -94,6 +94,14 @@ public class GameManager : MonoBehaviour
     public void PlayerDied()
     {
         Debug.Log("¡El jugador murió! Reiniciando partida...");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        if (SceneTransitionManager.Instance != null)
+        {
+            SceneTransitionManager.Instance.ReloadCurrentScene();
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }
