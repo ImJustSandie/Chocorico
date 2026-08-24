@@ -103,12 +103,16 @@ public class WallObjectSpawner : MonoBehaviour
         int count = Random.Range(1, 5);
         Vector3 basePos = CalculateSpawnPosition(dir);
 
+        // Orientar las púas según la pared: en la pared izquierda se espejan (180° en Y)
+        // para que las puntas apunten hacia el centro de la pantalla
+        Quaternion rotation = spawnOnLeftWall ? Quaternion.Euler(0f, 180f, 0f) : Quaternion.identity;
+
         for (int i = 0; i < count; i++)
         {
             float offsetY = (dir == WallDirection.Up) ? -(i * puaSpacing) : (i * puaSpacing);
             Vector3 pos = basePos + new Vector3(0f, offsetY, 0f);
 
-            GameObject obj = Instantiate(puaPrefab, pos, Quaternion.identity);
+            GameObject obj = Instantiate(puaPrefab, pos, rotation);
             WallObject wallObj = obj.GetComponent<WallObject>();
             if (wallObj != null)
             {
