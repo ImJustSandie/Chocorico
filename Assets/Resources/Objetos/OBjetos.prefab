@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4218211666255898139}
   - component: {fileID: 8804743461403989851}
   - component: {fileID: 4162609522118656467}
-  - component: {fileID: 3393995333539297585}
+  - component: {fileID: -4822658484272096202}
   m_Layer: 0
   m_Name: OBjetos
   m_TagString: Untagged
@@ -139,7 +139,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3393995333539297585
+--- !u!114 &-4822658484272096202
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,14 +148,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 6003131275639926621}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c086a442d02a8c44b049b578db712b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4941efd2897f611408e7aec0bd5478a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnergyItem
   itemType: 0
   energyToRestore: 25
-  fallSpeed: 2
-  positiveSprite: {fileID: 21300000, guid: e0ee4ffc758192145aa7ec63b782895b, type: 3}
-  negativeSprite: {fileID: 21300000, guid: 08c6ac598a72ba24db801504e90a9f51, type: 3}
+  energyToDrain: 15
+  positiveScore: 10
+  negativeScore: 5
+  fallSpeed: 3
+  positiveSprite: {fileID: 0}
+  negativeSprite: {fileID: 0}
   positiveColor: {r: 0.2, g: 0.9, b: 0.2, a: 1}
   negativeColor: {r: 0.9, g: 0.2, b: 0.2, a: 1}
   destroyOnCollect: 1
