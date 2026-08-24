@@ -4,7 +4,7 @@ using UnityEngine;
 /// Representa un objeto/ítem coleccionable en la escena.
 /// Cae continuamente hacia abajo y cambia de color según su tipo:
 /// - Positivo: Verde (recarga energía)
-/// - Negativo: Rojo (activa penalización de salto por 3s)
+/// - Negativo: Rojo (drena energía de la barra directamente)
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class EnergyItem : MonoBehaviour
@@ -12,15 +12,25 @@ public class EnergyItem : MonoBehaviour
     public enum ItemType
     {
         Positive, // Otorga energía al jugador (Verde)
-        Negative  // Activa el debuff de 3s donde cada salto drena energía (Rojo)
+        Negative  // Drena energía de la barra directamente (Rojo)
     }
 
     [Header("Configuración del Ítem")]
-    [Tooltip("Tipo de objeto: Positivo (Verde/energía) o Negativo (Rojo/debuff)")]
+    [Tooltip("Tipo de objeto: Positivo (Verde/energía) o Negativo (Rojo/drena energía)")]
     [SerializeField] private ItemType itemType = ItemType.Positive;
 
     [Tooltip("Cantidad de energía que recarga (solo si es Positivo)")]
     [SerializeField] private float energyToRestore = 25f;
+
+    [Tooltip("Cantidad de energía que drena (solo si es Negativo)")]
+    [SerializeField] private float energyToDrain = 15f;
+
+    [Header("Puntuación")]
+    [Tooltip("Puntos otorgados al recoger el ítem Positivo")]
+    [SerializeField] private int positiveScore = 10;
+
+    [Tooltip("Puntos otorgados al recoger el ítem Negativo (recogerlo también suma)")]
+    [SerializeField] private int negativeScore = 5;
 
     [Header("Movimiento")]
     [Tooltip("Velocidad de caída del objeto")]
@@ -106,8 +116,15 @@ public class EnergyItem : MonoBehaviour
             }
             else if (itemType == ItemType.Negative)
             {
-                // Efecto Negativo: Activa penalización de 3s al saltar
-                energyManager.ApplyJumpDrainDebuff();
+                // Efecto Negativo: Drena energía de la barra directamente
+                energyManager.DrainEnergy(energyToDrain);
+            }
+
+            // Otorgar puntuación por recoger el objeto
+            int points = (itemType == ItemType.Positive) ? positiveScore : negativeScore;
+            if (ScoreManager.Instance != null)
+            {
+                ScoreManager.Instance.AddPoints(points);
             }
 
             if (destroyOnCollect)

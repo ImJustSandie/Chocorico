@@ -29,15 +29,15 @@ public class ItemSpawner : MonoBehaviour
     [Tooltip("Prefab del objeto que contiene el script EnergyItem y SpriteRenderer")]
     [SerializeField] private GameObject itemPrefab;
 
-    [Header("Intervalos de Generación")]
-    [Tooltip("Tiempo mínimo entre cada generación (segundos)")]
+    [Header("Intervalos de Generación (Nivel 1 por defecto)")]
+    [Tooltip("Tiempo mínimo entre cada generación (segundos) - Usado si no hay LevelManager")]
     [SerializeField] private float minSpawnInterval = 1.5f;
 
-    [Tooltip("Tiempo máximo entre cada generación (segundos)")]
+    [Tooltip("Tiempo máximo entre cada generación (segundos) - Usado si no hay LevelManager")]
     [SerializeField] private float maxSpawnInterval = 3.0f;
 
     [Header("Probabilidades")]
-    [Tooltip("Probabilidad de que el objeto sea Positivo (0.0 a 1.0). Ejemplo: 0.6 = 60% positivo, 40% negativo")]
+    [Tooltip("Probabilidad de que el objeto sea Positivo (0.0 a 1.0). Ejemplo: 0.6 = 60% positivo, 40% negativo - Usado si no hay LevelManager")]
     [Range(0f, 1f)]
     [SerializeField] private float positiveProbability = 0.6f;
 
@@ -50,21 +50,11 @@ public class ItemSpawner : MonoBehaviour
 
     private float timer = 0f;
     private float nextSpawnTime = 2f;
-    private bool isSpawning = false;
-
-    void Start()
-    {
-        SetNextSpawnTime();
-    }
 
     void Update()
     {
-        // Si no ha empezado a generar objetos, esperar a que el juego inicie
-        if (!isSpawning)
-        {
-            // Se puede iniciar automáticamente o esperar a que el jugador dé el primer salto
-            isSpawning = true;
-        }
+        if (GameManager.Instance == null || !GameManager.Instance.CanSpawn)
+            return;
 
         timer += Time.deltaTime;
         if (timer >= nextSpawnTime)
@@ -91,11 +81,11 @@ public class ItemSpawner : MonoBehaviour
         // Instanciar el objeto
         GameObject spawnedObj = Instantiate(itemPrefab, spawnPosition, Quaternion.identity);
 
-        // Configurar su tipo (Positivo o Negativo)
         EnergyItem energyItem = spawnedObj.GetComponent<EnergyItem>();
         if (energyItem != null)
         {
-            EnergyItem.ItemType type = (Random.value <= positiveProbability)
+            float prob = (LevelManager.Instance != null) ? LevelManager.Instance.PositiveProbability : positiveProbability;
+            EnergyItem.ItemType type = (Random.value <= prob)
                 ? EnergyItem.ItemType.Positive
                 : EnergyItem.ItemType.Negative;
 
@@ -147,7 +137,17 @@ public class ItemSpawner : MonoBehaviour
 
     private void SetNextSpawnTime()
     {
-        nextSpawnTime = Random.Range(minSpawnInterval, maxSpawnInterval);
+        if (LevelManager.Instance != null)
+        {
+            nextSpawnTime = Random.Range(
+                LevelManager.Instance.ItemMinSpawnInterval,
+                LevelManager.Instance.ItemMaxSpawnInterval
+            );
+        }
+        else
+        {
+            nextSpawnTime = Random.Range(minSpawnInterval, maxSpawnInterval);
+        }
     }
 
     /// <summary>

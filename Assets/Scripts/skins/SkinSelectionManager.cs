@@ -93,7 +93,6 @@ public class SkinSelectionManager : MonoBehaviour
     {
         PlayerPrefs.SetInt(SKIN_PREFS_KEY, currentIndex);
         PlayerPrefs.Save();
-        Debug.Log($"Skin elegida guardada: Índice {currentIndex}. Cargando escena '{gameSceneName}'...");
 
         if (SceneTransitionManager.Instance != null)
         {

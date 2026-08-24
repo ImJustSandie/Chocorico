@@ -15,6 +15,10 @@ public class GameManager : MonoBehaviour
     [Tooltip("Gravedad aplicada al jugador cuando cae sin energía")]
     [SerializeField] private float fallGravity = 5f;
 
+    [Header("UI de Derrota")]
+    [Tooltip("Panel de derrota que se muestra al perder. El botón de 'Nueva Partida' debe llamar a GameManager.RestartGame.")]
+    [SerializeField] private GameObject defeatPanel;
+
     // Límites de pantalla (calculados en Start)
     private float screenTop;
     private float screenBottom;
@@ -35,6 +39,21 @@ public class GameManager : MonoBehaviour
     /// Instancia singleton para acceso global.
     /// </summary>
     public static GameManager Instance { get; private set; }
+
+    /// <summary>
+    /// Indica si la partida ya comenzó (primer salto del jugador).
+    /// </summary>
+    public bool HasGameStarted { get; private set; } = false;
+
+    /// <summary>
+    /// Indica si el jugador ya perdió (evita procesar la muerte varias veces).
+    /// </summary>
+    public bool IsGameOver { get; private set; } = false;
+
+    /// <summary>
+    /// Los spawners solo deben generar objetos mientras la partida esté activa.
+    /// </summary>
+    public bool CanSpawn => HasGameStarted && !IsGameOver;
 
     void Awake()
     {
@@ -89,11 +108,47 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Maneja la muerte del jugador y reinicia la partida.
+    /// Marca el inicio de la partida (se llama con el primer salto del jugador).
+    /// Habilita los spawners.
+    /// </summary>
+    public void StartGame()
+    {
+        HasGameStarted = true;
+        if (LevelManager.Instance != null)
+        {
+            LevelManager.Instance.StartTimer();
+        }
+    }
+
+    /// <summary>
+    /// Maneja la muerte del jugador: muestra el panel de derrota.
+    /// El reinicio se realiza desde el botón del panel (RestartGame).
     /// </summary>
     public void PlayerDied()
     {
-        Debug.Log("¡El jugador murió! Reiniciando partida...");
+        if (IsGameOver) return;
+
+        IsGameOver = true;
+        Debug.Log("¡El jugador murió!");
+
+        if (defeatPanel != null)
+        {
+            defeatPanel.SetActive(true);
+        }
+        else
+        {
+            // Fallback: si no hay panel asignado, reinicia directamente
+            RestartGame();
+        }
+    }
+
+    /// <summary>
+    /// Inicia una nueva partida: reinicia el estado al inicio recargando la escena actual.
+    /// Conectar este método al botón del panel de derrota.
+    /// </summary>
+    public void RestartGame()
+    {
+        Debug.Log("Iniciando nueva partida...");
 
         if (SceneTransitionManager.Instance != null)
         {

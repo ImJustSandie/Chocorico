@@ -63,8 +63,6 @@ public class PuaObject : WallObject
         }
         else
         {
-            // Golpe sin saltar: el jugador pierde directamente
-            Debug.Log("¡Golpe de púas sin saltar! El jugador pierde.");
             if (GameManager.Instance != null)
                 GameManager.Instance.PlayerDied();
         }

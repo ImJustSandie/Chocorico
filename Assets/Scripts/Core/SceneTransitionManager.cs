@@ -85,8 +85,6 @@ public class SceneTransitionManager : MonoBehaviour
     /// </summary>
     public void QuitGame()
     {
-        Debug.Log("SceneTransitionManager: Cerrando el juego...");
-
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

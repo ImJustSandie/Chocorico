@@ -6,11 +6,11 @@ public class WallObjectSpawner : MonoBehaviour
     [SerializeField] private GameObject aguardientePrefab;
     [SerializeField] private GameObject puaPrefab;
 
-    [Header("Spawn Aguardiente")]
+    [Header("Spawn Aguardiente (Nivel 1 por defecto)")]
     [SerializeField] private float minAguardienteInterval = 8f;
     [SerializeField] private float maxAguardienteInterval = 15f;
 
-    [Header("Spawn Púas")]
+    [Header("Spawn Púas (Nivel 1 por defecto)")]
     [SerializeField] private float minPuaInterval = 4f;
     [SerializeField] private float maxPuaInterval = 8f;
     [SerializeField] private float puaSpacing = 0.8f;
@@ -42,6 +42,10 @@ public class WallObjectSpawner : MonoBehaviour
 
     void Update()
     {
+        // No generar objetos si la partida no ha comenzado o ya terminó
+        if (GameManager.Instance == null || !GameManager.Instance.CanSpawn)
+            return;
+
         if (Time.time >= nextAguardienteSpawn && !aguardienteActive)
         {
             SpawnAguardiente();
@@ -57,12 +61,16 @@ public class WallObjectSpawner : MonoBehaviour
 
     private void ScheduleNextAguardiente()
     {
-        nextAguardienteSpawn = Time.time + Random.Range(minAguardienteInterval, maxAguardienteInterval);
+        float min = (LevelManager.Instance != null) ? LevelManager.Instance.AguardienteMinInterval : minAguardienteInterval;
+        float max = (LevelManager.Instance != null) ? LevelManager.Instance.AguardienteMaxInterval : maxAguardienteInterval;
+        nextAguardienteSpawn = Time.time + Random.Range(min, max);
     }
 
     private void ScheduleNextPua()
     {
-        nextPuaSpawn = Time.time + Random.Range(minPuaInterval, maxPuaInterval);
+        float min = (LevelManager.Instance != null) ? LevelManager.Instance.PuaMinInterval : minPuaInterval;
+        float max = (LevelManager.Instance != null) ? LevelManager.Instance.PuaMaxInterval : maxPuaInterval;
+        nextPuaSpawn = Time.time + Random.Range(min, max);
     }
 
     private void SpawnAguardiente()

@@ -25,10 +25,24 @@ public class AguardienteItem : WallObject
     [SerializeField] private Color tier2Color = Color.blue;
     [SerializeField] private Color tier3Color = Color.green;
 
-    [Header("Duraciones")]
-    [SerializeField] private float tier1Duration = 2f;
+    [Header("Configuración por Tier")]
+    [Tooltip("Multiplicador de slowdown de las cintas del Tier 1 (0.5 = 50% más lento)")]
+    [SerializeField] private float tier1SlowdownMultiplier = 0.5f;
+    [Tooltip("Duración del efecto de slowdown del Tier 1 (segundos)")]
+    [SerializeField] private float tier1SlowdownDuration = 3f;
+
+    [Tooltip("Duración de la pausa del drenaje pasivo del Tier 2 (segundos). Solo pausa la pérdida pasiva: las púas siguen drenando energía.")]
     [SerializeField] private float tier2Duration = 4f;
-    [SerializeField] private float tier3Duration = 6f;
+
+    [Header("Puntuación por Tier")]
+    [Tooltip("Puntos otorgados al recoger el Aguardiente de Tier 1")]
+    [SerializeField] private int tier1Score = 10;
+
+    [Tooltip("Puntos otorgados al recoger el Aguardiente de Tier 2")]
+    [SerializeField] private int tier2Score = 20;
+
+    [Tooltip("Puntos otorgados al recoger el Aguardiente de Tier 3")]
+    [SerializeField] private int tier3Score = 30;
 
     public void SetTier(Tier newTier)
     {
@@ -43,20 +57,41 @@ public class AguardienteItem : WallObject
 
     protected override void OnPlayerHit(PlayerManager player, EnergyManager energyManager)
     {
-        float duration = GetDuration();
-        energyManager.PauseDrain(duration);
-        Destroy(gameObject);
-    }
+        int score;
 
-    private float GetDuration()
-    {
         switch (tier)
         {
-            case Tier.Tier1: return tier1Duration;
-            case Tier.Tier2: return tier2Duration;
-            case Tier.Tier3: return tier3Duration;
-            default: return tier1Duration;
+            case Tier.Tier1:
+                if (LevelManager.Instance != null)
+                {
+                    LevelManager.Instance.ApplyConveyorSlowdown(tier1SlowdownDuration, tier1SlowdownMultiplier);
+                }
+                score = tier1Score;
+                break;
+
+            case Tier.Tier2:
+                // Tier 2: pausa SOLO el drenaje pasivo; DrainEnergy (púas, ítems negativos) sigue funcionando
+                energyManager.PauseDrain(tier2Duration);
+                score = tier2Score;
+                break;
+
+            case Tier.Tier3:
+                // Tier 3: rellena la barra de energía al máximo
+                energyManager.AddEnergy(energyManager.MaxEnergy);
+                score = tier3Score;
+                break;
+
+            default:
+                score = 0;
+                break;
         }
+
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.AddPoints(score);
+        }
+
+        Destroy(gameObject);
     }
 
     private void ApplyTierVisuals()

@@ -52,6 +52,19 @@ public class EnergyManager : MonoBehaviour
     /// </summary>
     public bool IsJumpDrainActive => debuffTimer > 0f;
 
+    public bool IsGodModeActive
+    {
+        get
+        {
+            PlayerManager pm = GetComponent<PlayerManager>();
+            if (pm != null)
+            {
+                return pm.IsGodModeEnabled;
+            }
+            return false;
+        }
+    }
+
     void Start()
     {
         currentEnergy = maxEnergy;
@@ -65,15 +78,13 @@ public class EnergyManager : MonoBehaviour
             drainPauseTimer -= Time.deltaTime;
         }
 
-        // Solo drenar energía pasiva una vez que el jugador inicia la partida
-        if (isGameStarted && currentEnergy > 0f && drainPauseTimer <= 0f)
+        if (isGameStarted && currentEnergy > 0f && drainPauseTimer <= 0f && !IsGodModeActive)
         {
             currentEnergy -= passiveDrainPerSecond * Time.deltaTime;
             currentEnergy = Mathf.Max(currentEnergy, 0f);
             UpdateEnergyBar();
         }
 
-        // Contador del debuff negativo
         if (debuffTimer > 0f)
         {
             debuffTimer -= Time.deltaTime;
@@ -96,17 +107,14 @@ public class EnergyManager : MonoBehaviour
     {
         if (currentEnergy <= 0f)
         {
-            Debug.Log("¡Sin energía! No se puede saltar.");
             return false;
         }
 
-        // Si el debuff negativo está activo, se drena energía en este salto
         if (IsJumpDrainActive)
         {
             currentEnergy -= jumpDrainOnDebuff;
             currentEnergy = Mathf.Max(currentEnergy, 0f);
             UpdateEnergyBar();
-            Debug.Log($"[Debuff Activo] Salto costó {jumpDrainOnDebuff} de energía. Restante: {currentEnergy}");
         }
 
         return true;
@@ -120,58 +128,39 @@ public class EnergyManager : MonoBehaviour
     {
         if (currentEnergy <= 0f)
         {
-            Debug.Log("¡Sin energía! No se puede cancelar el salto.");
             return false;
         }
 
-        // Costo base, o el doble si tiene el debuff del Gansito activo
         float cost = IsJumpDrainActive ? (cancelJumpBaseCost * 2f) : cancelJumpBaseCost;
 
         currentEnergy -= cost;
         currentEnergy = Mathf.Max(currentEnergy, 0f);
         UpdateEnergyBar();
 
-        Debug.Log($"[Cancel Jump] Consumió {cost} de energía (Debuff Gansito: {IsJumpDrainActive}). Restante: {currentEnergy}");
         return true;
     }
 
-    /// <summary>
-    /// Activa el efecto negativo: durante 'jumpDrainDebuffDuration' segundos, saltar costará energía.
-    /// </summary>
     public void ApplyJumpDrainDebuff()
     {
         debuffTimer = jumpDrainDebuffDuration;
-        Debug.Log($"¡Efecto negativo activado! Saltar costará energía durante {jumpDrainDebuffDuration} segundos.");
     }
 
-    /// <summary>
-    /// Añade energía (usado por el objeto positivo).
-    /// </summary>
     public void AddEnergy(float amount)
     {
         currentEnergy = Mathf.Min(currentEnergy + amount, maxEnergy);
         UpdateEnergyBar();
-        Debug.Log($"Energía recargada (+{amount}). Total: {currentEnergy}/{maxEnergy}");
     }
 
-    /// <summary>
-    /// Pausa el drenaje pasivo de energía durante la duración especificada.
-    /// </summary>
     public void PauseDrain(float duration)
     {
         drainPauseTimer = duration;
-        Debug.Log($"Drenaje de energía pausado por {duration} segundos.");
     }
 
-    /// <summary>
-    /// Drena energía directamente (usado por objetos dañinos como púas).
-    /// </summary>
     public void DrainEnergy(float amount)
     {
         currentEnergy -= amount;
         currentEnergy = Mathf.Max(currentEnergy, 0f);
         UpdateEnergyBar();
-        Debug.Log($"Energía drenada (-{amount}). Restante: {currentEnergy}");
     }
 
     /// <summary>

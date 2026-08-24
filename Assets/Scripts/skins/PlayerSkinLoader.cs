@@ -69,7 +69,6 @@ public class PlayerSkinLoader : MonoBehaviour
                     }
                 }
             }
-            Debug.Log($"Skin '{selectedSkin.skinName}' aplicada a {targetRenderers.Length} renderers.");
         }
         else if (targetRenderer != null)
         {
@@ -77,7 +76,6 @@ public class PlayerSkinLoader : MonoBehaviour
             if (mat != null)
             {
                 targetRenderer.material = mat;
-                Debug.Log($"Skin '{selectedSkin.skinName}' aplicada al renderer principal.");
             }
         }
     }

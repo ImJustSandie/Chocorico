@@ -80,6 +80,10 @@ public class PlayerManager : MonoBehaviour
     // Id del toque que mantiene el deslizamiento rápido a favor de la cinta (-1 si ninguno)
     private int fastSlideTouchId = -1;
 
+    [Header("God Mode (Testing)")]
+    [Tooltip("Activa el God Mode: no pierde energía y revive al centro al caer")]
+    [SerializeField] private bool isGodMode = false;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -121,6 +125,20 @@ public class PlayerManager : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance != null && GameManager.Instance.IsOffScreen(transform.position))
+        {
+            if (isGodMode)
+            {
+                RespawnAtWall();
+                return;
+            }
+            else
+            {
+                GameManager.Instance.PlayerDied();
+                return;
+            }
+        }
+
         // Si hay un toque de deslizamiento rápido activo, detectar cuando se suelta
         if (fastSlideTouchId != -1)
         {
@@ -239,20 +257,20 @@ public class PlayerManager : MonoBehaviour
             currentState = PlayerState.Falling;
             float fallGravity = GameManager.Instance != null ? GameManager.Instance.FallGravity : 5f;
             rb.linearVelocity = new Vector2(0f, -fallGravity);
-            Debug.Log("¡Energía agotada! El jugador cae.");
         }
 
-        // Mientras carga el salto: avanza en sentido contrario a la cinta, sin despegarse de la pared
+        float chargeSpeed = (LevelManager.Instance != null) ? LevelManager.Instance.ChargeMoveSpeed : chargeMoveSpeed;
+        float fastSpeed = (LevelManager.Instance != null) ? LevelManager.Instance.FastSlideSpeed : fastSlideSpeed;
+
         if (currentState == PlayerState.Charging)
         {
-            rb.linearVelocity = new Vector2(0f, -GetSlideDirection() * chargeMoveSpeed);
+            rb.linearVelocity = new Vector2(0f, -GetSlideDirection() * chargeSpeed);
         }
 
-        // Deslizamiento rápido: presionar el lado de la pared actual avanza a favor de la cinta más rápido
         if (fastSlideTouchId != -1
             && (currentState == PlayerState.Clinging || currentState == PlayerState.Idle))
         {
-            rb.linearVelocity = new Vector2(0f, GetSlideDirection() * fastSlideSpeed);
+            rb.linearVelocity = new Vector2(0f, GetSlideDirection() * fastSpeed);
         }
 
         // Aplicar curvatura de parábola mientras está en el aire saltando
@@ -262,17 +280,10 @@ public class PlayerManager : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y - (arcVerticalDir * jumpArcGravity * Time.fixedDeltaTime));
         }
 
-        // Con gravityScale en 0, la caída se acelera manualmente con FallGravity
         if (currentState == PlayerState.Falling)
         {
             float fallGravity = GameManager.Instance != null ? GameManager.Instance.FallGravity : 5f;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y - fallGravity * Time.fixedDeltaTime);
-        }
-
-        // Delegar la verificación de límites al GameManager
-        if (GameManager.Instance != null && GameManager.Instance.IsOffScreen(transform.position))
-        {
-            GameManager.Instance.PlayerDied();
         }
     }
 
@@ -283,10 +294,11 @@ public class PlayerManager : MonoBehaviour
     private void StartCharge(int touchId)
     {
         energyManager.StartGame();
+        if (GameManager.Instance != null)
+            GameManager.Instance.StartGame();
         chargingTouchId = touchId;
         chargeStartTime = Time.time;
         currentState = PlayerState.Charging;
-        Debug.Log("Cargando salto: avanzando contra la cinta");
     }
 
     /// <summary>
@@ -296,6 +308,8 @@ public class PlayerManager : MonoBehaviour
     {
         // Notificar que el juego comenzó para iniciar el drenado pasivo
         energyManager.StartGame();
+        if (GameManager.Instance != null)
+            GameManager.Instance.StartGame();
 
         // Verificar energía a través del EnergyManager
         if (!energyManager.TryConsumeJumpEnergy())
@@ -320,10 +334,6 @@ public class PlayerManager : MonoBehaviour
 
         // Inicia el salto con velocidad horizontal y un impulso vertical inicial según la dirección de la pared
         rb.linearVelocity = new Vector2(horizontalDir * jumpForceX, verticalDir * jumpInitialForceY);
-
-        Debug.Log(tapJump
-            ? "Tap rápido: salto plano hacia la " + (currentWall == WallSide.Left ? "derecha" : "izquierda")
-            : "Salto hacia la " + (currentWall == WallSide.Left ? "derecha" : "izquierda"));
     }
 
     /// <summary>
@@ -349,8 +359,6 @@ public class PlayerManager : MonoBehaviour
         // la velocidad vertical y la gravedad del arco se conservan, así la
         // trayectoria continúa su caída natural de vuelta (sin cambios bruscos)
         rb.linearVelocity = new Vector2(returnHorizontalDir * jumpForceX, rb.linearVelocity.y);
-
-        Debug.Log($"Salto cancelado: regresando a la pared {currentWall}");
     }
 
     /// <summary>
@@ -370,7 +378,8 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private void ApplyWallSlide()
     {
-        rb.linearVelocity = new Vector2(0f, GetSlideDirection() * wallSlideSpeed);
+        float slideSpeed = (LevelManager.Instance != null) ? LevelManager.Instance.WallSlideSpeed : wallSlideSpeed;
+        rb.linearVelocity = new Vector2(0f, GetSlideDirection() * slideSpeed);
     }
 
     /// <summary>
@@ -383,14 +392,12 @@ public class PlayerManager : MonoBehaviour
             currentWall = WallSide.Left;
             currentState = PlayerState.Clinging;
             ApplyWallSlide();
-            Debug.Log("Pegado a la pared izquierda");
         }
         else if (collision.gameObject.CompareTag("WallRight"))
         {
             currentWall = WallSide.Right;
             currentState = PlayerState.Clinging;
             ApplyWallSlide();
-            Debug.Log("Pegado a la pared derecha");
         }
     }
 
@@ -406,6 +413,15 @@ public class PlayerManager : MonoBehaviour
         bounceForce = force;
         bounceTimer = duration;
         rb.linearVelocity = new Vector2(horizontalDir * force, 0f);
-        Debug.Log("Rebote de púas aplicado");
     }
+
+    private void RespawnAtWall()
+    {
+        currentState = PlayerState.Clinging;
+        transform.position = new Vector3(0f, 0f, 0f);
+        rb.linearVelocity = Vector2.zero;
+        ApplyWallSlide();
+    }
+
+    public bool IsGodModeEnabled => isGodMode;
 }
