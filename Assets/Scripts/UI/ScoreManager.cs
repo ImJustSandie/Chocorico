@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 /// <summary>
 /// Administra la puntuación del jugador: acumula puntos al recoger objetos
@@ -12,16 +13,33 @@ public class ScoreManager : MonoBehaviour
     /// </summary>
     public static ScoreManager Instance { get; private set; }
 
-    [Header("UI")]
-    [Tooltip("Texto de la UI donde se muestra la puntuación")]
-    [SerializeField] private Text scoreText;
+    /// <summary>
+    /// Clave de PlayerPrefs usada para guardar la mejor puntuación.
+    /// </summary>
+    public const string HIGH_SCORE_PREFS_KEY = "HighScore";
+
+    [Header("UI (TextMeshPro)")]
+    [Tooltip("Texto de la UI donde se muestra la puntuación actual durante el juego")]
+    [SerializeField] private TextMeshProUGUI scoreText;
+
+    [Tooltip("Texto de la UI donde se muestra la puntuación total obtenida al finalizar la partida")]
+    [SerializeField] private TextMeshProUGUI finalScoreText;
+
+    [Tooltip("Texto de la UI donde se muestra la mejor puntuación histórica (opcional)")]
+    [SerializeField] private TextMeshProUGUI highScoreText;
 
     private int currentScore = 0;
+    private int highScore = 0;
 
     /// <summary>
     /// Puntuación actual del jugador (solo lectura).
     /// </summary>
     public int CurrentScore => currentScore;
+
+    /// <summary>
+    /// Mejor puntuación obtenida por el jugador (solo lectura).
+    /// </summary>
+    public int HighScore => highScore;
 
     void Awake()
     {
@@ -36,7 +54,35 @@ public class ScoreManager : MonoBehaviour
 
     void Start()
     {
+        LoadHighScore();
         UpdateScoreText();
+        UpdateHighScoreText();
+    }
+
+    /// <summary>
+    /// Carga la puntuación más alta guardada en PlayerPrefs.
+    /// </summary>
+    public void LoadHighScore()
+    {
+        highScore = PlayerPrefs.GetInt(HIGH_SCORE_PREFS_KEY, 0);
+    }
+
+    /// <summary>
+    /// Compara la puntuación actual con la puntuación más alta.
+    /// Si la supera, la guarda en PlayerPrefs y actualiza la UI.
+    /// </summary>
+    /// <returns>True si se logró un nuevo récord.</returns>
+    public bool SaveHighScore()
+    {
+        if (currentScore > highScore)
+        {
+            highScore = currentScore;
+            PlayerPrefs.SetInt(HIGH_SCORE_PREFS_KEY, highScore);
+            PlayerPrefs.Save();
+            UpdateHighScoreText();
+            return true;
+        }
+        return false;
     }
 
     /// <summary>
@@ -53,6 +99,19 @@ public class ScoreManager : MonoBehaviour
         if (scoreText != null)
         {
             scoreText.text = currentScore.ToString();
+        }
+
+        if (finalScoreText != null)
+        {
+            finalScoreText.text = currentScore.ToString();
+        }
+    }
+
+    private void UpdateHighScoreText()
+    {
+        if (highScoreText != null)
+        {
+            highScoreText.text = highScore.ToString();
         }
     }
 }

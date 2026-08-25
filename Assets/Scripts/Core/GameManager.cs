@@ -15,9 +15,18 @@ public class GameManager : MonoBehaviour
     [Tooltip("Gravedad aplicada al jugador cuando cae sin energía")]
     [SerializeField] private float fallGravity = 5f;
 
-    [Header("UI de Derrota")]
+    [Header("UI & Canvases")]
+    [Tooltip("Canvas/Panel del Menú Inicial o Tutorial.")]
+    [SerializeField] private GameObject menuCanvas;
+
+    [Tooltip("Canvas/Panel de la UI de Juego (HUD con puntuación, energía, etc.).")]
+    [SerializeField] private GameObject inGameCanvas;
+
     [Tooltip("Panel de derrota que se muestra al perder. El botón de 'Nueva Partida' debe llamar a GameManager.RestartGame.")]
     [SerializeField] private GameObject defeatPanel;
+
+    [Tooltip("Indica si se debe ocultar la UI del juego (inGameCanvas) cuando aparezca el panel de derrota.")]
+    [SerializeField] private bool hideInGameCanvasOnDefeat = true;
 
     // Límites de pantalla (calculados en Start)
     private float screenTop;
@@ -69,6 +78,17 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         CalculateScreenBounds();
+        InitializeUI();
+    }
+
+    /// <summary>
+    /// Configura la visibilidad inicial de los Canvases antes de empezar a jugar.
+    /// </summary>
+    private void InitializeUI()
+    {
+        if (menuCanvas != null) menuCanvas.SetActive(true);
+        if (inGameCanvas != null) inGameCanvas.SetActive(false);
+        if (defeatPanel != null) defeatPanel.SetActive(false);
     }
 
     /// <summary>
@@ -109,11 +129,15 @@ public class GameManager : MonoBehaviour
 
     /// <summary>
     /// Marca el inicio de la partida (se llama con el primer salto del jugador).
-    /// Habilita los spawners.
+    /// Oculta el menú inicial, activa la UI de juego y habilita los spawners.
     /// </summary>
     public void StartGame()
     {
         HasGameStarted = true;
+
+        if (menuCanvas != null) menuCanvas.SetActive(false);
+        if (inGameCanvas != null) inGameCanvas.SetActive(true);
+
         if (LevelManager.Instance != null)
         {
             LevelManager.Instance.StartTimer();
@@ -130,6 +154,17 @@ public class GameManager : MonoBehaviour
 
         IsGameOver = true;
         Debug.Log("¡El jugador murió!");
+
+        // Guardar la puntuación acumulada si es un nuevo récord
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.SaveHighScore();
+        }
+
+        if (hideInGameCanvasOnDefeat && inGameCanvas != null)
+        {
+            inGameCanvas.SetActive(false);
+        }
 
         if (defeatPanel != null)
         {

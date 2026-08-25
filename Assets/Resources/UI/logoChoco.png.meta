@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: e0ee4ffc758192145aa7ec63b782895b
+guid: a23c9d7b39ed4724fa1e556d235e1a21
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3035160420350132119
-    second: CHOCORRAMO_0
+      213: 725645825194485719
+    second: logoChoco_0
+  - first:
+      213: 4295858403735186611
+    second: logoChoco_1
+  - first:
+      213: 4550705451763096319
+    second: logoChoco_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 400
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,7 +116,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
+    buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -126,13 +132,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CHOCORRAMO_0
+      name: logoChoco_0
       rect:
         serializedVersion: 2
-        x: 368
-        y: 230
-        width: 1197
-        height: 619
+        x: 1255
+        y: 714
+        width: 9
+        height: 9
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +147,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 79f7b43425e0f1a20800000000000000
-      internalID: 3035160420350132119
+      spriteID: 7d7667b8803021a00800000000000000
+      internalID: 725645825194485719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logoChoco_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 57
+        width: 2141
+        height: 651
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3bc23003574fd9b30800000000000000
+      internalID: 4295858403735186611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: logoChoco_2
+      rect:
+        serializedVersion: 2
+        x: 1520
+        y: 699
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffad5c96f7a572f30800000000000000
+      internalID: 4550705451763096319
       vertices: []
       indices: 
       edges: []
@@ -161,7 +211,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      CHOCORRAMO_0: 3035160420350132119
+      logoChoco_0: 725645825194485719
+      logoChoco_1: 4295858403735186611
+      logoChoco_2: 4550705451763096319
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

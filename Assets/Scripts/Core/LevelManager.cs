@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
@@ -75,6 +76,13 @@ public class LevelManager : MonoBehaviour
     [Tooltip("Si es true, avanza automáticamente de nivel cada 'timeToNextLevel' segundos")]
     [SerializeField] private bool autoAdvanceLevels = false;
 
+    [Header("UI (TextMeshPro)")]
+    [Tooltip("Texto de la UI donde se muestra el nivel actual (opcional)")]
+    [SerializeField] private TextMeshProUGUI levelText;
+
+    [Tooltip("Texto o prefijo que acompaña al número de nivel (ej: 'Nivel ' o 'Level ')")]
+    [SerializeField] private string levelPrefix = "Nivel ";
+
     [Header("Eventos")]
     public UnityEvent<int> OnLevelChanged;
 
@@ -139,6 +147,11 @@ public class LevelManager : MonoBehaviour
         Instance = this;
     }
 
+    void Start()
+    {
+        UpdateLevelText();
+    }
+
     void Update()
     {
         if (timerActive && autoAdvanceLevels && currentLevel < 3)
@@ -165,6 +178,7 @@ public class LevelManager : MonoBehaviour
     {
         currentLevel = Mathf.Clamp(level, 1, 3);
         levelTimer = 0f;
+        UpdateLevelText();
         OnLevelChanged?.Invoke(currentLevel);
         Debug.Log($"LevelManager: Nivel establecido a {currentLevel}");
     }
@@ -175,8 +189,17 @@ public class LevelManager : MonoBehaviour
         {
             currentLevel++;
             levelTimer = 0f;
+            UpdateLevelText();
             OnLevelChanged?.Invoke(currentLevel);
             Debug.Log($"LevelManager: Avanzando al nivel {currentLevel}");
+        }
+    }
+
+    private void UpdateLevelText()
+    {
+        if (levelText != null)
+        {
+            levelText.text = $"{levelPrefix}{currentLevel}";
         }
     }
 

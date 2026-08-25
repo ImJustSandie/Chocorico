@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1fa8fc66d1312d14a895e92f96bf5efe
+guid: 9b1da40bba12dd441aaf7c58ee0a633f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4149063911599606617
-    second: Riko_Man_azul_0
+      213: 6541344776316691341
+    second: Riko_Man_001_AguardienteAzul_Base_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Riko_Man_azul_0
+      name: Riko_Man_001_AguardienteAzul_Base_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7a476b6ea509b66c0800000000000000
-      internalID: -4149063911599606617
+      spriteID: d83a6b1aa6687ca50800000000000000
+      internalID: 6541344776316691341
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Riko_Man_azul_0: -4149063911599606617
+      Riko_Man_001_AguardienteAzul_Base_0: 6541344776316691341
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

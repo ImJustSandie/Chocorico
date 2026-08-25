@@ -3,8 +3,8 @@ guid: 9b0582f822d4a7e4481e9d89bdf56ad5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5442369731060564540
-    second: Aguardiente_Verde_0
+      213: 1016702329243404534
+    second: AGUARDIENTE_VERDE_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 400
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,7 +110,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
+    buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Aguardiente_Verde_0
+      name: AGUARDIENTE_VERDE_0
       rect:
         serializedVersion: 2
-        x: 739
-        y: 25
-        width: 440
-        height: 1018
+        x: 768
+        y: 74
+        width: 370
+        height: 933
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c32043c7f6e278b40800000000000000
-      internalID: 5442369731060564540
+      spriteID: 6f88dd8b16d0c1e00800000000000000
+      internalID: 1016702329243404534
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Aguardiente_Verde_0: 5442369731060564540
+      AGUARDIENTE_VERDE_0: 1016702329243404534
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

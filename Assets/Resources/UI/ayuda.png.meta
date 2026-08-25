@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: de7f4c711fdd0284db29775a95231a2c
+guid: 488b704c231b75c4f98b9cd1c993af8c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5566717720981303581
-    second: AGUARDIENTE_ROJO_0
+      213: -6361269000895829911
+    second: ayuda_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AGUARDIENTE_ROJO_0
+      name: ayuda_0
       rect:
         serializedVersion: 2
-        x: 777
-        y: 74
-        width: 366
-        height: 938
+        x: 102
+        y: 55
+        width: 1122
+        height: 1102
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3ee890cf9bb0fb2b0800000000000000
-      internalID: -5566717720981303581
+      spriteID: 96866e01c8b38b7a0800000000000000
+      internalID: -6361269000895829911
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      AGUARDIENTE_ROJO_0: -5566717720981303581
+      ayuda_0: -6361269000895829911
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

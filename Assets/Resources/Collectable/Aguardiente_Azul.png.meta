@@ -3,8 +3,8 @@ guid: b7542e44b6b2b9b4bb575daf6549f85b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3640701116241258087
-    second: Aguardiente_Azul_0
+      213: 7426430571242892686
+    second: AGUARDIENTE_AZUL_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 400
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,7 +110,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
+    buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Aguardiente_Azul_0
+      name: AGUARDIENTE_AZUL_0
       rect:
         serializedVersion: 2
-        x: 725
-        y: 25
-        width: 472
-        height: 1012
+        x: 771
+        y: 53
+        width: 378
+        height: 962
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9995211cf91a97dc0800000000000000
-      internalID: -3640701116241258087
+      spriteID: e8da804f14bff0760800000000000000
+      internalID: 7426430571242892686
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Aguardiente_Azul_0: -3640701116241258087
+      AGUARDIENTE_AZUL_0: 7426430571242892686
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

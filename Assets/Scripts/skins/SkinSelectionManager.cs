@@ -23,6 +23,16 @@ public class SkinSelectionManager : MonoBehaviour
     [Tooltip("Renderers del personaje cuando está compuesto por múltiples meshes (ej. 3 meshes)")]
     [SerializeField] private Renderer[] previewRenderers;
 
+    [Tooltip("Transform raíz/padre del personaje a rotar. Si se deja nulo, intentará rotar el objeto de previewRenderer.")]
+    [SerializeField] private Transform characterTransform;
+
+    [Header("Rotación Continua")]
+    [Tooltip("Activa la rotación automática de 360° indefinida del personaje.")]
+    [SerializeField] private bool autoRotate = true;
+
+    [Tooltip("Velocidad de rotación en grados por segundo (eje Y).")]
+    [SerializeField] private float rotationSpeed = 45f;
+
     [Header("UI (Opcional)")]
     [Tooltip("Texto para mostrar el nombre de la skin seleccionada")]
     [SerializeField] private TextMeshProUGUI skinNameText;
@@ -62,6 +72,28 @@ public class SkinSelectionManager : MonoBehaviour
 
         // 3. Actualizar la previsualización inicial
         UpdatePreview();
+    }
+
+    private void Update()
+    {
+        if (!autoRotate) return;
+
+        // Determinar el Transform a rotar
+        Transform target = characterTransform;
+        if (target == null && previewRenderer != null)
+        {
+            target = previewRenderer.transform;
+        }
+        else if (target == null && previewRenderers != null && previewRenderers.Length > 0 && previewRenderers[0] != null)
+        {
+            target = previewRenderers[0].transform.parent != null ? previewRenderers[0].transform.parent : previewRenderers[0].transform;
+        }
+
+        if (target != null)
+        {
+            // Rotar continuamente alrededor del eje vertical (Y)
+            target.Rotate(Vector3.up, rotationSpeed * Time.deltaTime, Space.World);
+        }
     }
 
     /// <summary>

@@ -13,13 +13,33 @@ MonoBehaviour:
   m_Name: SkinDatabase
   m_EditorClassIdentifier: Assembly-CSharp::SkinDatabase
   skins:
-  - skinName: base
+  - skinName: ChocoRiko
     description: Un chocoriko clasico para un mundo simple
     skinMaterial: {fileID: 2100000, guid: 6aa255891df7d2b4e99aa2d82b784438, type: 2}
     skinMaterials: []
-    icon: {fileID: 21300000, guid: e0ee4ffc758192145aa7ec63b782895b, type: 3}
-  - skinName: azul
+    icon: {fileID: 21300000, guid: 29e52a9761edb7f479375c7a6c0a122c, type: 3}
+  - skinName: Patito
     description: "Parace que alguien cambio de compa\xF1ia"
     skinMaterial: {fileID: 2100000, guid: 99384f8011cd4b240b5c2b7f1d8dd96f, type: 2}
     skinMaterials: []
-    icon: {fileID: 21300000, guid: 2acdadc7a4a8c0442ae65963f077efa6, type: 3}
+    icon: {fileID: 21300000, guid: 3aaa7586356965846a17cfc97020d804, type: 3}
+  - skinName: Aguardiente AZUL
+    description: jura haber tomado solo 4
+    skinMaterial: {fileID: 2100000, guid: fb9943b01f148a6489e15816201361c8, type: 2}
+    skinMaterials: []
+    icon: {fileID: 21300000, guid: b7542e44b6b2b9b4bb575daf6549f85b, type: 3}
+  - skinName: Aguardiente ROJO
+    description: jura haber tomado solo 4
+    skinMaterial: {fileID: 2100000, guid: 4cd65c2bd3209df4db04e25034f32804, type: 2}
+    skinMaterials: []
+    icon: {fileID: 21300000, guid: de7f4c711fdd0284db29775a95231a2c, type: 3}
+  - skinName: Aguardiente VERDE
+    description: jura haber tomado solo 4
+    skinMaterial: {fileID: 2100000, guid: 62a8ab11ba345b8499702105001d8712, type: 2}
+    skinMaterials: []
+    icon: {fileID: 21300000, guid: 9b0582f822d4a7e4481e9d89bdf56ad5, type: 3}
+  - skinName: GOLDEN
+    description: brilla como el oro
+    skinMaterial: {fileID: 2100000, guid: 70775d6e4cffd4943bf110b60d96022e, type: 2}
+    skinMaterials: []
+    icon: {fileID: 21300000, guid: 9b0582f822d4a7e4481e9d89bdf56ad5, type: 3}
