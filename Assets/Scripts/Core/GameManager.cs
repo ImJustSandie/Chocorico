@@ -142,6 +142,11 @@ public class GameManager : MonoBehaviour
         {
             LevelManager.Instance.StartTimer();
         }
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayMusic();
+        }
     }
 
     /// <summary>
@@ -154,6 +159,11 @@ public class GameManager : MonoBehaviour
 
         IsGameOver = true;
         Debug.Log("¡El jugador murió!");
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopMusic();
+        }
 
         // Guardar la puntuación acumulada si es un nuevo récord
         if (ScoreManager.Instance != null)

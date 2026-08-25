@@ -155,7 +155,7 @@ MonoBehaviour:
   energyToRestore: 25
   energyToDrain: 15
   positiveScore: 10
-  negativeScore: 5
+  negativeScore: -5
   fallSpeed: 3
   positiveSprite: {fileID: 21300000, guid: 29e52a9761edb7f479375c7a6c0a122c, type: 3}
   negativeSprite: {fileID: 21300000, guid: 3aaa7586356965846a17cfc97020d804, type: 3}

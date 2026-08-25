@@ -57,6 +57,9 @@ public class AguardienteItem : WallObject
 
     protected override void OnPlayerHit(PlayerManager player, EnergyManager energyManager)
     {
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlaySfx(AudioManager.SfxType.Aguardiente);
+
         int score;
 
         switch (tier)

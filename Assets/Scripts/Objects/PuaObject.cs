@@ -49,6 +49,9 @@ public class PuaObject : WallObject
         energyManager.DrainEnergy(damageAmount);
         hasHit = true;
 
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlaySfx(AudioManager.SfxType.PuaHit);
+
         bool isJumpingOrFalling = player.IsInAirState();
 
         if (isJumpingOrFalling)

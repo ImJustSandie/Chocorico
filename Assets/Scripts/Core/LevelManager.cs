@@ -9,8 +9,7 @@ public class LevelManager : MonoBehaviour
     {
         [Header("Velocidades de Cinta")]
         public float wallSlideSpeed = 3f;
-        public float fastSlideSpeed = 6f;
-        public float chargeMoveSpeed = 2f;
+        public float beltAgainstSpeed = 2f;
 
         [Header("Spawn de Items (Positivos/Negativos)")]
         public float itemMinSpawnInterval = 1.5f;
@@ -31,8 +30,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private LevelConfig level1Config = new LevelConfig
     {
         wallSlideSpeed = 3f,
-        fastSlideSpeed = 6f,
-        chargeMoveSpeed = 2f,
+        beltAgainstSpeed = 2f,
         itemMinSpawnInterval = 1.5f,
         itemMaxSpawnInterval = 3.0f,
         positiveProbability = 0.6f,
@@ -45,8 +43,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private LevelConfig level2Config = new LevelConfig
     {
         wallSlideSpeed = 4f,
-        fastSlideSpeed = 7f,
-        chargeMoveSpeed = 2.5f,
+        beltAgainstSpeed = 2.5f,
         itemMinSpawnInterval = 1.2f,
         itemMaxSpawnInterval = 2.5f,
         positiveProbability = 0.5f,
@@ -59,8 +56,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private LevelConfig level3Config = new LevelConfig
     {
         wallSlideSpeed = 5f,
-        fastSlideSpeed = 8f,
-        chargeMoveSpeed = 3f,
+        beltAgainstSpeed = 3f,
         itemMinSpawnInterval = 1.0f,
         itemMaxSpawnInterval = 2.0f,
         positiveProbability = 0.4f,
@@ -119,8 +115,7 @@ public class LevelManager : MonoBehaviour
     }
 
     public float WallSlideSpeed => CurrentConfig.wallSlideSpeed * slowdownMultiplier;
-    public float FastSlideSpeed => CurrentConfig.fastSlideSpeed * slowdownMultiplier;
-    public float ChargeMoveSpeed => CurrentConfig.chargeMoveSpeed * slowdownMultiplier;
+    public float BeltAgainstSpeed => CurrentConfig.beltAgainstSpeed * slowdownMultiplier;
 
     public float ItemMinSpawnInterval => CurrentConfig.itemMinSpawnInterval;
     public float ItemMaxSpawnInterval => CurrentConfig.itemMaxSpawnInterval;

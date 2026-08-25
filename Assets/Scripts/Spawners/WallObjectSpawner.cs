@@ -34,6 +34,10 @@ public class WallObjectSpawner : MonoBehaviour
     private float nextPuaSpawn;
     private bool aguardienteActive = false;
 
+    private const float spawnRetryDelay = 0.5f;
+
+    private WallSpawnCoordinator.Side Side => spawnOnLeftWall ? WallSpawnCoordinator.Side.Left : WallSpawnCoordinator.Side.Right;
+
     void Start()
     {
         ScheduleNextAguardiente();
@@ -48,14 +52,30 @@ public class WallObjectSpawner : MonoBehaviour
 
         if (Time.time >= nextAguardienteSpawn && !aguardienteActive)
         {
-            SpawnAguardiente();
-            ScheduleNextAguardiente();
+            if (WallSpawnCoordinator.CanSpawnAguardiente(Side))
+            {
+                SpawnAguardiente();
+                ScheduleNextAguardiente();
+            }
+            else
+            {
+                // Pared ocupada por púas u otro aguardiente: reintentar pronto
+                nextAguardienteSpawn = Time.time + spawnRetryDelay;
+            }
         }
 
         if (Time.time >= nextPuaSpawn)
         {
-            SpawnPuaGroup();
-            ScheduleNextPua();
+            if (WallSpawnCoordinator.CanSpawnPua(Side))
+            {
+                SpawnPuaGroup();
+                ScheduleNextPua();
+            }
+            else
+            {
+                // Hay púas activas en otra pared o un aguardiente en esta: reintentar pronto
+                nextPuaSpawn = Time.time + spawnRetryDelay;
+            }
         }
     }
 
@@ -84,7 +104,7 @@ public class WallObjectSpawner : MonoBehaviour
         WallObject wallObj = obj.GetComponent<WallObject>();
         if (wallObj != null)
         {
-            wallObj.Initialize(dir);
+            wallObj.Initialize(dir, Side);
         }
 
         AguardienteItem item = obj.GetComponent<AguardienteItem>();
@@ -124,7 +144,7 @@ public class WallObjectSpawner : MonoBehaviour
             WallObject wallObj = obj.GetComponent<WallObject>();
             if (wallObj != null)
             {
-                wallObj.Initialize(dir);
+                wallObj.Initialize(dir, Side);
             }
         }
     }

@@ -15,16 +15,46 @@ public abstract class WallObject : MonoBehaviour
     protected WallDirection direction;
     protected bool hasBeenOnScreen = false;
     protected SpriteRenderer spriteRenderer;
+    private WallSpawnCoordinator.Side side;
+    private bool isRegistered = false;
 
     public void Initialize(WallDirection dir)
     {
+        Initialize(dir, WallSpawnCoordinator.Side.Left);
+    }
+
+    public void Initialize(WallDirection dir, WallSpawnCoordinator.Side spawnSide)
+    {
         direction = dir;
         hasBeenOnScreen = false;
+
+        // Registrar en el coordinador (púas y aguardiente se excluyen entre sí por pared;
+        // las púas además se excluyen globalmente para que nunca queden enfrentadas)
+        side = spawnSide;
+        if (!isRegistered)
+        {
+            isRegistered = true;
+            if (this is PuaObject)
+                WallSpawnCoordinator.RegisterPua(side);
+            else
+                WallSpawnCoordinator.RegisterAguardiente(side);
+        }
     }
 
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    void OnDestroy()
+    {
+        if (!isRegistered) return;
+        isRegistered = false;
+
+        if (this is PuaObject)
+            WallSpawnCoordinator.UnregisterPua(side);
+        else
+            WallSpawnCoordinator.UnregisterAguardiente(side);
     }
 
     protected virtual void Update()

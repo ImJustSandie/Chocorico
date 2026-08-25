@@ -5,6 +5,8 @@ using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 /// <summary>
 /// Controla el movimiento del jugador: input táctil, salto entre paredes,
 /// wall cling y detección de caída.
+/// Inputs: presionar el lado de la pantalla donde está el jugador avanza EN CONTRA
+/// de la cinta; presionar el lado contrario salta inmediatamente hacia esa pared.
 /// Depende de EnergyManager (mismo GameObject) y GameManager (singleton).
 /// </summary>
 public class PlayerManager : MonoBehaviour
@@ -12,12 +14,12 @@ public class PlayerManager : MonoBehaviour
     // === Estado del jugador ===
     private enum PlayerState
     {
-        Idle,      // Quieto en la pared, esperando el primer toque
-        Clinging,  // Pegado a una pared, deslizándose
-        Charging,  // Manteniendo presionado el lado contrario: avanza contra la cinta antes de saltar
-        Jumping,   // En el aire, moviéndose hacia la pared opuesta
-        Falling,   // Sin energía, cayendo
-        Bouncing   // Rebotando tras golpear púas en el aire
+        Idle,        // Quieto en la pared, esperando el primer toque
+        Clinging,    // Pegado a una pared, deslizándose
+        AgainstBelt, // Manteniendo presionado el lado actual: avanza contra la cinta
+        Jumping,     // En el aire, moviéndose hacia la pared opuesta
+        Falling,     // Sin energía, cayendo
+        Bouncing     // Rebotando tras golpear púas en el aire
     }
 
     private enum WallSide
@@ -28,26 +30,17 @@ public class PlayerManager : MonoBehaviour
 
     // === Configuración desde el Inspector ===
     [Header("Movimiento")]
-    [Tooltip("Fuerza horizontal del salto hacia la pared opuesta")]
+    [Tooltip("Velocidad horizontal del salto (a mayor valor, más cerrado el arco)")]
     [SerializeField] private float jumpForceX = 8f;
 
-    [Tooltip("Fuerza o impulso vertical inicial del salto (en la dirección del movimiento de la pared actual)")]
-    [SerializeField] private float jumpInitialForceY = 6f;
-
-    [Tooltip("Fuerza de arco/gravedad opuesta durante el salto que crea la parábola")]
+    [Tooltip("Gravedad del arco del salto. Junto con jumpForceX define qué tan abierto es: la velocidad vertical inicial se calcula para aterrizar a la misma altura de origen")]
     [SerializeField] private float jumpArcGravity = 12f;
 
     [Tooltip("Velocidad de deslizamiento al estar pegado a la pared")]
     [SerializeField] private float wallSlideSpeed = 3f;
 
-    [Tooltip("Velocidad al presionar el lado de la pared actual: avanza a favor de la cinta más rápido")]
-    [SerializeField] private float fastSlideSpeed = 6f;
-
-    [Tooltip("Velocidad vertical con la que avanza contra la cinta mientras se mantiene presionado el lado contrario")]
-    [SerializeField] private float chargeMoveSpeed = 2f;
-
-    [Tooltip("Tiempo máximo (segundos) de presión para considerar el toque como tap rápido: salto plano sin avance vertical")]
-    [SerializeField] private float tapThreshold = 0.15f;
+    [Tooltip("Velocidad vertical con la que avanza contra la cinta mientras se mantiene presionado el lado actual")]
+    [SerializeField] private float beltAgainstSpeed = 2f;
 
     [Header("Dirección de las paredes")]
     [Tooltip("Si es true, la pared izquierda mueve hacia arriba. Si es false, mueve hacia abajo.")]
@@ -69,16 +62,10 @@ public class PlayerManager : MonoBehaviour
     private float bounceTimer = 0f;
     private float bounceHorizontalDir = 0f;
     private float bounceForce = 0f;
-    // Dirección vertical actual de la gravedad del arco (se invierte al rebotar en púas)
-    private float arcVerticalDir = 0f;
-    // Id del toque que está cargando el salto (manteniendo presionado)
-    private int chargingTouchId = -1;
-    // Momento en que inició la carga del salto
-    private float chargeStartTime = 0f;
-    // Indica si el salto actual es un tap rápido (plano, sin componente vertical)
-    private bool isTapJump = false;
-    // Id del toque que mantiene el deslizamiento rápido a favor de la cinta (-1 si ninguno)
-    private int fastSlideTouchId = -1;
+    // Id del toque que mantiene el avance contra la cinta (-1 si ninguno)
+    private int beltTouchId = -1;
+    // Escala inicial del modelo (para hacer flip sin perder la escala original)
+    private Vector3 initialScale;
 
     [Header("God Mode (Testing)")]
     [Tooltip("Activa el God Mode: no pierde energía y revive al centro al caer")]
@@ -107,10 +94,11 @@ public class PlayerManager : MonoBehaviour
         // (si no, la gravedad de Physics2D se suma al subir y se resta al bajar, asimetrizando el arco)
         rb.gravityScale = 0f;
 
-        // Estado inicial: quieto en la pared configurada, esperando el primer toque
+        // Estado inicial: en el centro de la pantalla, esperando el primer toque
         currentWall = startOnLeftWall ? WallSide.Left : WallSide.Right;
         currentState = PlayerState.Idle;
         rb.linearVelocity = Vector2.zero;
+        initialScale = transform.localScale;
     }
 
     public void OnEnable()
@@ -139,55 +127,25 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        // Si hay un toque de deslizamiento rápido activo, detectar cuando se suelta
-        if (fastSlideTouchId != -1)
+        // Si hay un toque de avance contra la cinta activo, detectar cuando se suelta
+        if (beltTouchId != -1)
         {
-            bool fastSlideHeld = false;
+            bool beltHeld = false;
             foreach (var touch in Touch.activeTouches)
             {
-                if (touch.touchId == fastSlideTouchId
+                if (touch.touchId == beltTouchId
                     && touch.phase != UnityEngine.InputSystem.TouchPhase.Ended
                     && touch.phase != UnityEngine.InputSystem.TouchPhase.Canceled)
                 {
-                    fastSlideHeld = true;
+                    beltHeld = true;
                     break;
                 }
             }
 
-            if (!fastSlideHeld)
+            if (!beltHeld)
             {
-                fastSlideTouchId = -1;
-                // Al soltar no salta: vuelve al deslizamiento normal si sigue en la pared
-                if (currentState == PlayerState.Clinging || currentState == PlayerState.Idle)
-                {
-                    ApplyWallSlide();
-                }
+                StopBeltAgainst();
             }
-        }
-
-        // Mientras carga el salto: saltar cuando el dedo se suelte
-        if (currentState == PlayerState.Charging)
-        {
-            bool stillHolding = false;
-            foreach (var touch in Touch.activeTouches)
-            {
-                if (touch.touchId == chargingTouchId
-                    && touch.phase != UnityEngine.InputSystem.TouchPhase.Ended
-                    && touch.phase != UnityEngine.InputSystem.TouchPhase.Canceled)
-                {
-                    stillHolding = true;
-                    break;
-                }
-            }
-
-            if (!stillHolding)
-            {
-                chargingTouchId = -1;
-                // Tap rápido (presionar y soltar de una): salto plano, sin avance vertical
-                bool wasTap = (Time.time - chargeStartTime) <= tapThreshold;
-                Jump(wasTap);
-            }
-            return;
         }
 
         foreach (var touch in Touch.activeTouches)
@@ -197,24 +155,33 @@ public class PlayerManager : MonoBehaviour
 
             bool touchedRight = touch.screenPosition.x > Screen.width / 2f;
 
-            // 1. Si está en la pared (Idle o Clinging)
-            if (currentState == PlayerState.Clinging || currentState == PlayerState.Idle)
+            // 1. Si aún no empezó (en el centro): cualquier lado inicia la partida
+            //    saltando hacia la pared de ese lado
+            if (currentState == PlayerState.Idle)
+            {
+                Jump(touchedRight ? WallSide.Right : WallSide.Left);
+                break;
+            }
+            // 2. Pegado a una pared (Clinging o avanzando contra la cinta)
+            if (currentState == PlayerState.Clinging || currentState == PlayerState.AgainstBelt)
             {
                 bool touchedSameSide = (currentWall == WallSide.Left && !touchedRight)
                     || (currentWall == WallSide.Right && touchedRight);
 
                 if (touchedSameSide)
                 {
-                    // Presionar el lado de la pared actual: deslizamiento rápido a favor de la cinta (no salta)
-                    fastSlideTouchId = touch.touchId;
-                    break;
+                    // Presionar el lado de la pared actual: avanza en contra de la cinta mientras se mantenga presionado
+                    StartBeltAgainst(touch.touchId);
                 }
-
-                // Si toca el lado contrario: inicia la carga del salto hacia la pared opuesta
-                StartCharge(touch.touchId);
+                else
+                {
+                    // Presionar el lado contrario: salta inmediatamente hacia la pared opuesta
+                    StopBeltAgainst();
+                    Jump(currentWall == WallSide.Left ? WallSide.Right : WallSide.Left);
+                }
                 break;
             }
-            // 2. Si está en medio de un salto (Jumping): Cancelar y devolverse a la pared de la que salió (si está habilitado)
+            // 3. Si está en medio de un salto (Jumping): Cancelar y devolverse a la pared de la que salió (si está habilitado)
             else if (enableCancelJump && currentState == PlayerState.Jumping)
             {
                 // Si saltó desde la izquierda y toca la IZQUIERDA -> vuelve a la izquierda
@@ -243,10 +210,9 @@ public class PlayerManager : MonoBehaviour
             if (bounceTimer <= 0f)
             {
                 // Continúa avanzando en dirección contraria a las púas (de vuelta a la pared de origen)
+                // La velocidad vertical se conserva: el arco continúa su trayectoria natural
                 currentState = PlayerState.Jumping;
-                // El regreso espeja el arco del salto original
-                arcVerticalDir = -arcVerticalDir;
-                rb.linearVelocity = new Vector2(bounceHorizontalDir * jumpForceX, 0f);
+                rb.linearVelocity = new Vector2(bounceHorizontalDir * jumpForceX, rb.linearVelocity.y);
             }
             return;
         }
@@ -259,25 +225,18 @@ public class PlayerManager : MonoBehaviour
             rb.linearVelocity = new Vector2(0f, -fallGravity);
         }
 
-        float chargeSpeed = (LevelManager.Instance != null) ? LevelManager.Instance.ChargeMoveSpeed : chargeMoveSpeed;
-        float fastSpeed = (LevelManager.Instance != null) ? LevelManager.Instance.FastSlideSpeed : fastSlideSpeed;
+        float beltSpeed = (LevelManager.Instance != null) ? LevelManager.Instance.BeltAgainstSpeed : beltAgainstSpeed;
 
-        if (currentState == PlayerState.Charging)
+        // Avance en contra de la cinta mientras el lado actual esté presionado
+        if (currentState == PlayerState.AgainstBelt)
         {
-            rb.linearVelocity = new Vector2(0f, -GetSlideDirection() * chargeSpeed);
+            rb.linearVelocity = new Vector2(0f, -GetSlideDirection() * beltSpeed);
         }
 
-        if (fastSlideTouchId != -1
-            && (currentState == PlayerState.Clinging || currentState == PlayerState.Idle))
-        {
-            rb.linearVelocity = new Vector2(0f, GetSlideDirection() * fastSpeed);
-        }
-
-        // Aplicar curvatura de parábola mientras está en el aire saltando
+        // Aplicar gravedad del arco mientras está en el aire saltando
         if (currentState == PlayerState.Jumping)
         {
-            // Reducir progresivamente el impulso inicial para formar la parábola (fuerza en sentido contrario)
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y - (arcVerticalDir * jumpArcGravity * Time.fixedDeltaTime));
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y - (jumpArcGravity * Time.fixedDeltaTime));
         }
 
         if (currentState == PlayerState.Falling)
@@ -288,23 +247,38 @@ public class PlayerManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Inicia la carga del salto: mientras el dedo se mantenga presionado,
-    /// el jugador avanza en sentido contrario a la cinta. Al soltar, salta.
+    /// Inicia el avance en contra de la cinta: mientras el dedo se mantenga presionado
+    /// sobre el lado de la pared actual, el jugador avanza en sentido contrario a la cinta.
     /// </summary>
-    private void StartCharge(int touchId)
+    private void StartBeltAgainst(int touchId)
     {
         energyManager.StartGame();
         if (GameManager.Instance != null)
             GameManager.Instance.StartGame();
-        chargingTouchId = touchId;
-        chargeStartTime = Time.time;
-        currentState = PlayerState.Charging;
+
+        beltTouchId = touchId;
+        currentState = PlayerState.AgainstBelt;
     }
 
     /// <summary>
-    /// Realiza el salto hacia la pared opuesta, consumiendo energía.
+    /// Detiene el avance contra la cinta y vuelve al deslizamiento normal en la pared.
     /// </summary>
-    private void Jump(bool tapJump = false)
+    private void StopBeltAgainst()
+    {
+        beltTouchId = -1;
+        if (currentState == PlayerState.AgainstBelt)
+        {
+            currentState = PlayerState.Clinging;
+            ApplyWallSlide();
+        }
+    }
+
+    /// <summary>
+    /// Realiza el salto hacia la pared indicada, consumiendo energía.
+    /// El impulso vertical inicial se calcula para que el arco aterrice
+    /// a la misma altura de origen, en la pared contraria.
+    /// </summary>
+    private void Jump(WallSide targetWall)
     {
         // Notificar que el juego comenzó para iniciar el drenado pasivo
         energyManager.StartGame();
@@ -322,18 +296,59 @@ public class PlayerManager : MonoBehaviour
         }
 
         currentState = PlayerState.Jumping;
-        isTapJump = tapJump;
 
-        float horizontalDir = (currentWall == WallSide.Left) ? 1f : -1f;
+        float horizontalDir = (targetWall == WallSide.Left) ? -1f : 1f;
+        float vx = horizontalDir * jumpForceX;
 
-        // Salto invertido: impulso vertical contrario a la dirección de la cinta,
-        // el arco curva de vuelta hacia el sentido de la cinta.
-        // En un tap rápido no hay avance vertical: salto plano horizontal
-        float verticalDir = tapJump ? 0f : -GetSlideDirection();
-        arcVerticalDir = tapJump ? 0f : verticalDir;
+        // Arco balístico: vy inicial tal que, con la gravedad del arco,
+        // el jugador vuelva a la altura actual justo al llegar a la otra pared
+        float vy = ComputeJumpInitialVy(targetWall, vx);
 
-        // Inicia el salto con velocidad horizontal y un impulso vertical inicial según la dirección de la pared
-        rb.linearVelocity = new Vector2(horizontalDir * jumpForceX, verticalDir * jumpInitialForceY);
+        rb.linearVelocity = new Vector2(vx, vy);
+
+        SetFacing(horizontalDir);
+    }
+
+    /// <summary>
+    /// Calcula la velocidad vertical inicial del salto para un arco que
+    /// termina a la misma altura de inicio sobre la pared destino:
+    /// vy = gravedad * tiempoDeVuelo / 2.
+    /// </summary>
+    private float ComputeJumpInitialVy(WallSide targetWall, float vx)
+    {
+        float targetX = GetWallTargetX(targetWall);
+        float distanceX = Mathf.Abs(targetX - transform.position.x);
+
+        float flightTime = distanceX / Mathf.Abs(vx);
+        return 0.5f * jumpArcGravity * flightTime;
+    }
+
+    /// <summary>
+    /// Devuelve la X donde debe aterrizar el jugador al llegar a la pared indicada
+    /// (borde interno de la pared + medio ancho del jugador). Si no encuentra la
+    /// pared, usa los límites de pantalla como fallback.
+    /// </summary>
+    private float GetWallTargetX(WallSide wall)
+    {
+        string wallTag = (wall == WallSide.Left) ? "WallLeft" : "WallRight";
+        GameObject wallObject = GameObject.FindGameObjectWithTag(wallTag);
+
+        Collider2D wallCollider = (wallObject != null) ? wallObject.GetComponent<Collider2D>() : null;
+        Collider2D playerCollider = GetComponent<Collider2D>();
+
+        if (wallCollider != null && playerCollider != null)
+        {
+            float sign = (wall == WallSide.Left) ? 1f : -1f;
+            return wallCollider.bounds.center.x + sign * (wallCollider.bounds.extents.x + playerCollider.bounds.extents.x);
+        }
+
+        // Fallback: bordes de pantalla
+        if (GameManager.Instance != null)
+        {
+            return (wall == WallSide.Left) ? GameManager.Instance.ScreenLeft : GameManager.Instance.ScreenRight;
+        }
+
+        return transform.position.x;
     }
 
     /// <summary>
@@ -359,6 +374,8 @@ public class PlayerManager : MonoBehaviour
         // la velocidad vertical y la gravedad del arco se conservan, así la
         // trayectoria continúa su caída natural de vuelta (sin cambios bruscos)
         rb.linearVelocity = new Vector2(returnHorizontalDir * jumpForceX, rb.linearVelocity.y);
+
+        SetFacing(returnHorizontalDir);
     }
 
     /// <summary>
@@ -366,11 +383,30 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private float GetSlideDirection()
     {
-        if (currentWall == WallSide.Left)
+        return GetSlideDirection(currentWall);
+    }
+
+    /// <summary>
+    /// Devuelve la dirección vertical de la cinta de una pared (+1 sube, -1 baja).
+    /// </summary>
+    private float GetSlideDirection(WallSide wall)
+    {
+        if (wall == WallSide.Left)
         {
             return leftWallGoesUp ? 1f : -1f;
         }
         return leftWallGoesUp ? -1f : 1f;
+    }
+
+    /// <summary>
+    /// Voltea el modelo horizontalmente según la dirección de movimiento
+    /// (+1 = mirando a la derecha como al inicio, -1 = volteado hacia la izquierda).
+    /// </summary>
+    private void SetFacing(float horizontalDir)
+    {
+        Vector3 scale = initialScale;
+        scale.x *= (horizontalDir >= 0f) ? 1f : -1f;
+        transform.localScale = scale;
     }
 
     /// <summary>
@@ -387,6 +423,14 @@ public class PlayerManager : MonoBehaviour
     /// </summary>
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // Antes de que la partida comience: quedarse quieto en la pared sin deslizarse
+        if (GameManager.Instance != null && !GameManager.Instance.HasGameStarted)
+        {
+            currentState = PlayerState.Idle;
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         if (collision.gameObject.CompareTag("WallLeft"))
         {
             currentWall = WallSide.Left;

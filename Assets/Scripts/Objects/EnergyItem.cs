@@ -113,11 +113,17 @@ public class EnergyItem : MonoBehaviour
             {
                 // Efecto Positivo: Otorga energía
                 energyManager.AddEnergy(energyToRestore);
+
+                if (AudioManager.Instance != null)
+                    AudioManager.Instance.PlaySfx(AudioManager.SfxType.PositiveItem);
             }
             else if (itemType == ItemType.Negative)
             {
                 // Efecto Negativo: Drena energía de la barra directamente
                 energyManager.DrainEnergy(energyToDrain);
+
+                if (AudioManager.Instance != null)
+                    AudioManager.Instance.PlaySfx(AudioManager.SfxType.NegativeItem);
             }
 
             // Otorgar puntuación por recoger el objeto
