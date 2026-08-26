@@ -21,7 +21,8 @@ public class PlayerManager : MonoBehaviour
         AgainstBelt, // Manteniendo presionado el lado actual: avanza contra la cinta
         Jumping,     // En el aire, moviéndose hacia la pared opuesta
         Falling,     // Sin energía, cayendo
-        Bouncing     // Rebotando tras golpear púas en el aire
+        Bouncing,    // Rebotando tras golpear púas en el aire
+        Dead         // El personaje ha muerto
     }
 
     private enum WallSide
@@ -70,7 +71,10 @@ public class PlayerManager : MonoBehaviour
     private Vector3 initialScale;
 
     [Header("Animación")]
-    [Tooltip("Referencia al Animator del personaje. Expone los parámetros Anim_Clinging y Anim_Jumping.")]
+    [Tooltip("Referencia al gestor de animaciones del personaje.")]
+    [SerializeField] private AnimationManager animationManager;
+
+    [Tooltip("Referencia al Animator del personaje (opcional si se usa aniManager).")]
     public Animator animator;
 
     [Header("God Mode (Testing)")]
@@ -81,6 +85,18 @@ public class PlayerManager : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         energyManager = GetComponent<EnergyManager>();
+        if (animationManager == null)
+        {
+            animationManager = GetComponent<AnimationManager>();
+            if (animationManager == null)
+            {
+                animationManager = gameObject.AddComponent<AnimationManager>();
+            }
+        }
+        if (animator != null && animationManager != null)
+        {
+            animationManager.SetAnimator(animator);
+        }
 
         if (rb == null)
         {
@@ -133,8 +149,13 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        // Mientras no se haya presionado el botón de jugar, ignorar todos los inputs de gameplay
-        if (GameManager.Instance != null && !GameManager.Instance.IsPlaying)
+        // Mientras no se haya presionado el botón de jugar o la partida haya terminado (muerte), ignorar todos los inputs de gameplay
+        if (GameManager.Instance != null && (!GameManager.Instance.IsPlaying || GameManager.Instance.IsGameOver))
+        {
+            return;
+        }
+
+        if (currentState == PlayerState.Dead)
         {
             return;
         }
@@ -214,6 +235,15 @@ public class PlayerManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (currentState == PlayerState.Dead || (GameManager.Instance != null && GameManager.Instance.IsGameOver))
+        {
+            if (currentState != PlayerState.Dead)
+            {
+                Die();
+            }
+            return;
+        }
+
         if (currentState == PlayerState.Bouncing)
         {
             bounceTimer -= Time.fixedDeltaTime;
@@ -271,11 +301,10 @@ public class PlayerManager : MonoBehaviour
         beltTouchId = touchId;
         currentState = PlayerState.AgainstBelt;
 
-        // Animación: pegado a la pared avanzando contra la cinta
-        if (animator != null)
+        // Animación: pegado a la pared avanzando contra la cinta (Hold)
+        if (animationManager != null)
         {
-            animator.SetBool("Anim_Clinging", true);
-            animator.SetBool("Anim_Jumping", false);
+            animationManager.PlayHoldAgainstBelt();
         }
     }
 
@@ -291,10 +320,9 @@ public class PlayerManager : MonoBehaviour
             ApplyWallSlide();
 
             // Animación: deslizamiento normal en la pared (Clinging)
-            if (animator != null)
+            if (animationManager != null)
             {
-                animator.SetBool("Anim_Clinging", true);
-                animator.SetBool("Anim_Jumping", false);
+                animationManager.PlayWallSlide();
             }
         }
     }
@@ -320,10 +348,9 @@ public class PlayerManager : MonoBehaviour
             rb.linearVelocity = new Vector2(0f, -fallGravity);
 
             // Animación: caída libre (en el aire, sin control)
-            if (animator != null)
+            if (animationManager != null)
             {
-                animator.SetBool("Anim_Clinging", false);
-                animator.SetBool("Anim_Jumping", true);
+                animationManager.PlayFalling();
             }
             return;
         }
@@ -341,11 +368,10 @@ public class PlayerManager : MonoBehaviour
 
         SetFacing(horizontalDir);
 
-        // Animación: saltando hacia la pared opuesta
-        if (animator != null)
+        // Animación: saltando/tap hacia la pared opuesta
+        if (animationManager != null)
         {
-            animator.SetBool("Anim_Clinging", false);
-            animator.SetBool("Anim_Jumping", true);
+            animationManager.PlayTapOrJump();
         }
     }
 
@@ -406,10 +432,9 @@ public class PlayerManager : MonoBehaviour
             rb.linearVelocity = new Vector2(0f, -fallGravity);
 
             // Animación: caída por cancelación sin energía
-            if (animator != null)
+            if (animationManager != null)
             {
-                animator.SetBool("Anim_Clinging", false);
-                animator.SetBool("Anim_Jumping", true);
+                animationManager.PlayFalling();
             }
             return;
         }
@@ -423,7 +448,7 @@ public class PlayerManager : MonoBehaviour
         rb.linearVelocity = new Vector2(returnHorizontalDir * jumpForceX, rb.linearVelocity.y);
 
         SetFacing(returnHorizontalDir);
-        // El jugador sigue en el aire regresando: mantiene Anim_Jumping activo
+        // El jugador sigue en el aire regresando: mantiene animación de salto
     }
 
     /// <summary>
@@ -446,15 +471,77 @@ public class PlayerManager : MonoBehaviour
         return leftWallGoesUp ? -1f : 1f;
     }
 
+    [Header("Orientación / Flip")]
+    [Tooltip("Tiempo de retardo (en segundos) antes de voltear al personaje al cambiar de dirección.")]
+    [SerializeField] private float flipDelay = 0.1f;
+
+    [Tooltip("Usa SpriteRenderer.flipX/flipY en lugar de cambiar transform.localScale.")]
+    [SerializeField] private bool useSpriteRendererFlip = false;
+
+    [Tooltip("Invierte la escala/sprite en X al cambiar de pared/dirección.")]
+    [SerializeField] private bool flipXOnWallChange = true;
+
+    [Tooltip("Invierte la escala/sprite en Y al cambiar de pared/dirección.")]
+    [SerializeField] private bool flipYOnWallChange = true;
+
+    private Coroutine flipCoroutine;
+
     /// <summary>
-    /// Voltea el modelo horizontalmente según la dirección de movimiento
-    /// (+1 = mirando a la derecha como al inicio, -1 = volteado hacia la izquierda).
+    /// Inicia el volteo del personaje en X y/o Y con el retardo configurado en flipDelay.
     /// </summary>
     private void SetFacing(float horizontalDir)
     {
-        Vector3 scale = initialScale;
-        scale.x *= (horizontalDir >= 0f) ? 1f : -1f;
-        transform.localScale = scale;
+        if (flipCoroutine != null)
+        {
+            StopCoroutine(flipCoroutine);
+            flipCoroutine = null;
+        }
+
+        if (flipDelay > 0f && gameObject.activeInHierarchy)
+        {
+            flipCoroutine = StartCoroutine(FlipRoutine(horizontalDir, flipDelay));
+        }
+        else
+        {
+            ApplyFacingDirectly(horizontalDir);
+        }
+    }
+
+    private System.Collections.IEnumerator FlipRoutine(float horizontalDir, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ApplyFacingDirectly(horizontalDir);
+        flipCoroutine = null;
+    }
+
+    private void ApplyFacingDirectly(float horizontalDir)
+    {
+        SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        if (useSpriteRendererFlip && spriteRenderer != null)
+        {
+            if (flipXOnWallChange)
+            {
+                spriteRenderer.flipX = (horizontalDir < 0f);
+            }
+            if (flipYOnWallChange)
+            {
+                spriteRenderer.flipY = (horizontalDir < 0f);
+            }
+        }
+        else
+        {
+            Vector3 scale = initialScale;
+            if (flipXOnWallChange)
+            {
+                scale.x *= (horizontalDir >= 0f) ? 1f : -1f;
+            }
+            if (flipYOnWallChange)
+            {
+                scale.y *= (horizontalDir >= 0f) ? 1f : -1f;
+            }
+            transform.localScale = scale;
+        }
     }
 
     /// <summary>
@@ -478,10 +565,9 @@ public class PlayerManager : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
 
             // Animación: idle esperando el primer tap
-            if (animator != null)
+            if (animationManager != null)
             {
-                animator.SetBool("Anim_Clinging", false);
-                animator.SetBool("Anim_Jumping", false);
+                animationManager.PlayIdle();
             }
             return;
         }
@@ -491,12 +577,12 @@ public class PlayerManager : MonoBehaviour
             currentWall = WallSide.Left;
             currentState = PlayerState.Clinging;
             ApplyWallSlide();
+            SetFacing(-1f);
 
             // Animación: aterrizó en la pared izquierda
-            if (animator != null)
+            if (animationManager != null)
             {
-                animator.SetBool("Anim_Clinging", true);
-                animator.SetBool("Anim_Jumping", false);
+                animationManager.PlayWallSlide();
             }
         }
         else if (collision.gameObject.CompareTag("WallRight"))
@@ -504,12 +590,12 @@ public class PlayerManager : MonoBehaviour
             currentWall = WallSide.Right;
             currentState = PlayerState.Clinging;
             ApplyWallSlide();
+            SetFacing(1f);
 
             // Animación: aterrizó en la pared derecha
-            if (animator != null)
+            if (animationManager != null)
             {
-                animator.SetBool("Anim_Clinging", true);
-                animator.SetBool("Anim_Jumping", false);
+                animationManager.PlayWallSlide();
             }
         }
     }
@@ -527,11 +613,12 @@ public class PlayerManager : MonoBehaviour
         bounceTimer = duration;
         rb.linearVelocity = new Vector2(horizontalDir * force, 0f);
 
+        SetFacing(horizontalDir);
+
         // Animación: rebote por choque con púas (sigue en el aire)
-        if (animator != null)
+        if (animationManager != null)
         {
-            animator.SetBool("Anim_Clinging", false);
-            animator.SetBool("Anim_Jumping", true);
+            animationManager.PlayTapOrJump();
         }
     }
 
@@ -541,6 +628,20 @@ public class PlayerManager : MonoBehaviour
         transform.position = new Vector3(0f, 0f, 0f);
         rb.linearVelocity = Vector2.zero;
         ApplyWallSlide();
+    }
+
+    public void Die()
+    {
+        currentState = PlayerState.Dead;
+        StopBeltAgainst();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+        if (animationManager != null)
+        {
+            animationManager.PlayFalling();
+        }
     }
 
     public bool IsGodModeEnabled => isGodMode;

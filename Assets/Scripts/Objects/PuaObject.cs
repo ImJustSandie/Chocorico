@@ -66,6 +66,7 @@ public class PuaObject : WallObject
         }
         else
         {
+            player.Die();
             if (GameManager.Instance != null)
                 GameManager.Instance.PlayerDied();
         }
