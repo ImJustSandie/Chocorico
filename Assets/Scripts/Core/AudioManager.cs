@@ -41,6 +41,16 @@ public class AudioManager : MonoBehaviour
     [Tooltip("Sonido al ser herido con púas")]
     [SerializeField] private AudioClip puaHitClip;
 
+    // Estado de mute por capa (independiente de que el AudioSource exista)
+    private bool musicMuted = false;
+    private bool sfxMuted = false;
+
+    /// <summary>Indica si la capa de música está muteada.</summary>
+    public bool IsMusicMuted => musicMuted;
+
+    /// <summary>Indica si la capa de efectos está muteada.</summary>
+    public bool IsSfxMuted => sfxMuted;
+
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -102,4 +112,37 @@ public class AudioManager : MonoBehaviour
         if (clip != null)
             sfxSource.PlayOneShot(clip);
     }
+
+    /// <summary>
+    /// Mutea o desmutea la capa de música. No detiene la reproducción:
+    /// al desmutear la música sigue desde donde iba.
+    /// </summary>
+    public void SetMusicMuted(bool muted)
+    {
+        musicMuted = muted;
+
+        if (musicSource != null)
+            musicSource.mute = muted;
+    }
+
+    /// <summary>
+    /// Mutea o desmutea la capa de efectos de sonido.
+    /// </summary>
+    public void SetSfxMuted(bool muted)
+    {
+        sfxMuted = muted;
+
+        if (sfxSource != null)
+            sfxSource.mute = muted;
+    }
+
+    /// <summary>
+    /// Alterna el mute de la capa de música (conectar directo a un Button).
+    /// </summary>
+    public void ToggleMusicMute() => SetMusicMuted(!musicMuted);
+
+    /// <summary>
+    /// Alterna el mute de la capa de efectos (conectar directo a un Button).
+    /// </summary>
+    public void ToggleSfxMute() => SetSfxMuted(!sfxMuted);
 }
