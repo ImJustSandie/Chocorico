@@ -56,6 +56,7 @@ public class SceneTransitionManager : MonoBehaviour
     /// <param name="sceneName">Nombre exacto de la escena en Build Settings</param>
     public void LoadScene(string sceneName)
     {
+        Debug.Log("Transcicionando a>: " +sceneName);
         if (isTransitioning) return;
         StartCoroutine(TransitionToScene(sceneName));
     }

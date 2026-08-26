@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 /// <summary>
 /// Administra la lógica general del juego: detección de muerte, reinicio de escena,
@@ -24,6 +25,9 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("Panel de derrota que se muestra al perder. El botón de 'Nueva Partida' debe llamar a GameManager.RestartGame.")]
     [SerializeField] private GameObject defeatPanel;
+
+    [Tooltip("Bordes del menú que se animan (DOTween) al iniciar la partida.")]
+    [SerializeField] private MenuBorders menuBorders;
 
     [Tooltip("Indica si se debe ocultar la UI del juego (inGameCanvas) cuando aparezca el panel de derrota.")]
     [SerializeField] private bool hideInGameCanvasOnDefeat = true;
@@ -50,9 +54,16 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     /// <summary>
-    /// Indica si la partida ya comenzó (primer salto del jugador).
+    /// Indica si la partida ya comenzó (primer input de gameplay del jugador).
+    /// Los spawners dependen de este estado.
     /// </summary>
     public bool HasGameStarted { get; private set; } = false;
+
+    /// <summary>
+    /// Indica si se presionó el botón de jugar: la UI del menú está oculta
+    /// y los inputs táctiles de gameplay están habilitados.
+    /// </summary>
+    public bool IsPlaying { get; private set; } = false;
 
     /// <summary>
     /// Indica si el jugador ya perdió (evita procesar la muerte varias veces).
@@ -128,15 +139,43 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Marca el inicio de la partida (se llama con el primer salto del jugador).
-    /// Oculta el menú inicial, activa la UI de juego y habilita los spawners.
+    /// Inicia la partida (conectar al botón de Jugar del menú principal).
+    /// Oculta el menú, activa la UI de juego y habilita los inputs de gameplay.
     /// </summary>
     public void StartGame()
     {
-        HasGameStarted = true;
+        if (IsPlaying) return;
 
-        if (menuCanvas != null) menuCanvas.SetActive(false);
+        IsPlaying = true;
+
         if (inGameCanvas != null) inGameCanvas.SetActive(true);
+
+        if (menuBorders != null)
+        {
+            menuBorders.Hide();
+
+            // Ocultar el menú al terminar la animación de los bordes,
+            // para no desaparecerlos (y a sus bordes hijos) antes de animarse
+            if (menuCanvas != null)
+            {
+                DOVirtual.DelayedCall(menuBorders.Duration, () => menuCanvas.SetActive(false));
+            }
+        }
+        else if (menuCanvas != null)
+        {
+            menuCanvas.SetActive(false);
+        }
+    }
+
+    /// <summary>
+    /// Marca el primer input real de gameplay (primer salto/avance del jugador).
+    /// Habilita los spawners e inicia temporizador y música.
+    /// </summary>
+    public void NotifyFirstInput()
+    {
+        if (HasGameStarted) return;
+
+        HasGameStarted = true;
 
         if (LevelManager.Instance != null)
         {

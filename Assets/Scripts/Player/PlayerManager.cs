@@ -127,6 +127,12 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
+        // Mientras no se haya presionado el botón de jugar, ignorar todos los inputs de gameplay
+        if (GameManager.Instance != null && !GameManager.Instance.IsPlaying)
+        {
+            return;
+        }
+
         // Si hay un toque de avance contra la cinta activo, detectar cuando se suelta
         if (beltTouchId != -1)
         {
@@ -254,7 +260,7 @@ public class PlayerManager : MonoBehaviour
     {
         energyManager.StartGame();
         if (GameManager.Instance != null)
-            GameManager.Instance.StartGame();
+            GameManager.Instance.NotifyFirstInput();
 
         beltTouchId = touchId;
         currentState = PlayerState.AgainstBelt;
@@ -283,7 +289,7 @@ public class PlayerManager : MonoBehaviour
         // Notificar que el juego comenzó para iniciar el drenado pasivo
         energyManager.StartGame();
         if (GameManager.Instance != null)
-            GameManager.Instance.StartGame();
+            GameManager.Instance.NotifyFirstInput();
 
         // Verificar energía a través del EnergyManager
         if (!energyManager.TryConsumeJumpEnergy())

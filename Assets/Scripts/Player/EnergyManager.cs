@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 /// <summary>
 /// Administra la energía del jugador: consumo pasivo con el tiempo,
@@ -26,6 +27,16 @@ public class EnergyManager : MonoBehaviour
     [Header("UI")]
     [Tooltip("Referencia a la Image (Filled) de la barra de energía")]
     [SerializeField] private Image energyBar;
+
+    [Header("Shake de la barra (DOTween)")]
+    [Tooltip("Duración del shake cuando se pierde energía por púas o ítems negativos")]
+    [SerializeField] private float energyBarShakeDuration = 0.3f;
+
+    [Tooltip("Intensidad del shake (en unidades de UI)")]
+    [SerializeField] private float energyBarShakeStrength = 8f;
+
+    [Tooltip("Cantidad de vibraciones durante el shake")]
+    [SerializeField] private int energyBarShakeVibrato = 12;
 
     private float currentEnergy;
     private float debuffTimer = 0f;
@@ -69,6 +80,11 @@ public class EnergyManager : MonoBehaviour
     {
         currentEnergy = maxEnergy;
         UpdateEnergyBar();
+
+        if (energyBar == null)
+        {
+            Debug.LogWarning("EnergyManager: La referencia 'energyBar' no está asignada en el Inspector. La barra de energía no se actualizará ni hará shake.");
+        }
     }
 
     void Update()
@@ -161,6 +177,7 @@ public class EnergyManager : MonoBehaviour
         currentEnergy -= amount;
         currentEnergy = Mathf.Max(currentEnergy, 0f);
         UpdateEnergyBar();
+        ShakeEnergyBar();
     }
 
     /// <summary>
@@ -184,4 +201,21 @@ public class EnergyManager : MonoBehaviour
             energyBar.fillAmount = currentEnergy / maxEnergy;
         }
     }
+
+    /// <summary>
+    /// Shake ligero de la barra de energía al perder energía (púas, ítems negativos).
+    /// Se ignora si ya hay un shake en curso para no acumular offsets.
+    /// </summary>
+    private void ShakeEnergyBar()
+    {
+        if (energyBar == null) return;
+
+        if (energyBarShakeTween != null && energyBarShakeTween.IsActive()) return;
+
+        energyBarShakeTween = ((RectTransform)energyBar.transform)
+            .DOShakeAnchorPos(energyBarShakeDuration, energyBarShakeStrength, energyBarShakeVibrato)
+            .SetUpdate(true);
+    }
+
+    private Tween energyBarShakeTween;
 }
