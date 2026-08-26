@@ -32,6 +32,20 @@ public class GameManager : MonoBehaviour
     [Tooltip("Indica si se debe ocultar la UI del juego (inGameCanvas) cuando aparezca el panel de derrota.")]
     [SerializeField] private bool hideInGameCanvasOnDefeat = true;
 
+    [Header("Tutorial")]
+    [Tooltip("Si es true, el tutorial se muestra automáticamente la primera vez que se abre el juego.")]
+    [SerializeField] private bool showTutorial = true;
+
+    [Tooltip("Referencia al GameObject del jugador (se oculta mientras el tutorial está activo).")]
+    [SerializeField] private GameObject playerObject;
+
+    [Tooltip("Referencia al HelpPanel que contiene las páginas del tutorial.")]
+    [SerializeField] private HelpPanel helpPanel;
+
+    [Header("Objetos Spawneados")]
+    [Tooltip("Contenedor padre de todos los objetos spawneados dinámicamente. Se desactiva al morir para ocultarlos del panel de derrota.")]
+    [SerializeField] private Transform spawnedObjectsContainer;
+
     // Límites de pantalla (calculados en Start)
     private float screenTop;
     private float screenBottom;
@@ -75,6 +89,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public bool CanSpawn => HasGameStarted && !IsGameOver;
 
+    public const string TUTORIAL_PREFS_KEY = "HasSeenTutorial";
+
+    public bool IsTutorialActive { get; private set; } = false;
+
+    public Transform SpawnedObjectsContainer => spawnedObjectsContainer;
+
     void Awake()
     {
         // Singleton simple
@@ -94,12 +114,29 @@ public class GameManager : MonoBehaviour
 
     /// <summary>
     /// Configura la visibilidad inicial de los Canvases antes de empezar a jugar.
+    /// Si es la primera vez que se abre el juego y showTutorial es true, muestra el tutorial
+    /// y oculta al jugador. En caso contrario, el tutorial permanece oculto.
     /// </summary>
     private void InitializeUI()
     {
         if (menuCanvas != null) menuCanvas.SetActive(true);
         if (inGameCanvas != null) inGameCanvas.SetActive(false);
         if (defeatPanel != null) defeatPanel.SetActive(false);
+
+        bool isFirstTime = PlayerPrefs.GetInt(TUTORIAL_PREFS_KEY, 0) == 0;
+
+        if (showTutorial && isFirstTime && helpPanel != null)
+        {
+            IsTutorialActive = true;
+            helpPanel.Open();
+            SetPlayerVisibility(false);
+        }
+        else
+        {
+            IsTutorialActive = false;
+            if (helpPanel != null) helpPanel.Close();
+            SetPlayerVisibility(true);
+        }
     }
 
     /// <summary>
@@ -199,6 +236,11 @@ public class GameManager : MonoBehaviour
         IsGameOver = true;
         Debug.Log("¡El jugador murió!");
 
+        if (spawnedObjectsContainer != null)
+        {
+            spawnedObjectsContainer.gameObject.SetActive(false);
+        }
+
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.StopMusic();
@@ -223,6 +265,29 @@ public class GameManager : MonoBehaviour
         {
             // Fallback: si no hay panel asignado, reinicia directamente
             RestartGame();
+        }
+    }
+
+    /// <summary>
+    /// Llamado por el HelpPanel cuando el tutorial se cierra (todas las páginas vistas o cierre manual).
+    /// Guarda en PlayerPrefs que el tutorial ya fue visto y muestra al jugador.
+    /// </summary>
+    public void OnTutorialClosed()
+    {
+        IsTutorialActive = false;
+        PlayerPrefs.SetInt(TUTORIAL_PREFS_KEY, 1);
+        PlayerPrefs.Save();
+        SetPlayerVisibility(true);
+    }
+
+    /// <summary>
+    /// Muestra u oculta el objeto del jugador.
+    /// </summary>
+    private void SetPlayerVisibility(bool visible)
+    {
+        if (playerObject != null)
+        {
+            playerObject.SetActive(visible);
         }
     }
 

@@ -78,8 +78,12 @@ public class ItemSpawner : MonoBehaviour
 
         Vector3 spawnPosition = CalculateSpawnPosition();
 
-        // Instanciar el objeto
         GameObject spawnedObj = Instantiate(itemPrefab, spawnPosition, Quaternion.identity);
+
+        if (GameManager.Instance != null && GameManager.Instance.SpawnedObjectsContainer != null)
+        {
+            spawnedObj.transform.SetParent(GameManager.Instance.SpawnedObjectsContainer);
+        }
 
         EnergyItem energyItem = spawnedObj.GetComponent<EnergyItem>();
         if (energyItem != null)

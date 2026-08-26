@@ -52,10 +52,15 @@ public class HelpPanel : MonoBehaviour, IPointerClickHandler
 
     /// <summary>
     /// Cierra el panel. Conectar al botón X si se usa uno.
+    /// Notifica al GameManager para que guarde el estado del tutorial y muestre al jugador.
     /// </summary>
     public void Close()
     {
         gameObject.SetActive(false);
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnTutorialClosed();
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)

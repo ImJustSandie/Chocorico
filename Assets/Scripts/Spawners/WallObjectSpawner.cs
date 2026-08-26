@@ -101,6 +101,12 @@ public class WallObjectSpawner : MonoBehaviour
         Vector3 spawnPos = CalculateSpawnPosition(dir);
 
         GameObject obj = Instantiate(aguardientePrefab, spawnPos, Quaternion.identity);
+
+        if (GameManager.Instance != null && GameManager.Instance.SpawnedObjectsContainer != null)
+        {
+            obj.transform.SetParent(GameManager.Instance.SpawnedObjectsContainer);
+        }
+
         WallObject wallObj = obj.GetComponent<WallObject>();
         if (wallObj != null)
         {
@@ -141,6 +147,12 @@ public class WallObjectSpawner : MonoBehaviour
             Vector3 pos = basePos + new Vector3(0f, offsetY, 0f);
 
             GameObject obj = Instantiate(puaPrefab, pos, rotation);
+
+            if (GameManager.Instance != null && GameManager.Instance.SpawnedObjectsContainer != null)
+            {
+                obj.transform.SetParent(GameManager.Instance.SpawnedObjectsContainer);
+            }
+
             WallObject wallObj = obj.GetComponent<WallObject>();
             if (wallObj != null)
             {
