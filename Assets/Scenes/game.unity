@@ -1146,6 +1146,7 @@ MonoBehaviour:
   leftWallGoesUp: 1
   enableCancelJump: 1
   startOnLeftWall: 1
+  animator: {fileID: 683582446}
   isGodMode: 0
 --- !u!1 &579570100
 GameObject:
@@ -1497,6 +1498,11 @@ MonoBehaviour:
   positiveProbability: 0.6
   horizontalPadding: 1.5
   spawnOffsetY: 1
+--- !u!95 &683582446 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: e960cf005df3ad14eaa85a4e87b9f169, type: 3}
+  m_PrefabInstance: {fileID: 553098939}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &683738322
 GameObject:
   m_ObjectHideFlags: 0
