@@ -9,6 +9,8 @@ using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 /// de la cinta; presionar el lado contrario salta inmediatamente hacia esa pared.
 /// Depende de EnergyManager (mismo GameObject) y GameManager (singleton).
 /// </summary>
+/// 
+/// 
 public class PlayerManager : MonoBehaviour
 {
     // === Estado del jugador ===

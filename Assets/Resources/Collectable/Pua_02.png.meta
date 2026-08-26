@@ -1,0 +1,2106 @@
+fileFormatVersion: 2
+guid: 5538e8b8173545f4ab37dfc54653fe97
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8981246374086355023
+    second: Pua_02_0
+  - first:
+      213: -197394548180071344
+    second: Pua_02_1
+  - first:
+      213: 7875526626158579155
+    second: Pua_02_2
+  - first:
+      213: 6004322433520426161
+    second: Pua_02_3
+  - first:
+      213: -7342310524527364869
+    second: Pua_02_4
+  - first:
+      213: -8041142936118919002
+    second: Pua_02_5
+  - first:
+      213: -685452918888677091
+    second: Pua_02_6
+  - first:
+      213: 8307133569985625251
+    second: Pua_02_7
+  - first:
+      213: -4997503583272494287
+    second: Pua_02_8
+  - first:
+      213: 4800983075384764580
+    second: Pua_02_9
+  - first:
+      213: 8112688157206598653
+    second: Pua_02_10
+  - first:
+      213: -5192126689361391394
+    second: Pua_02_11
+  - first:
+      213: -7293847116952950182
+    second: Pua_02_12
+  - first:
+      213: 4724560953322110322
+    second: Pua_02_13
+  - first:
+      213: -2090927784011827296
+    second: Pua_02_14
+  - first:
+      213: 1707106708236311251
+    second: Pua_02_15
+  - first:
+      213: 1450168747882777838
+    second: Pua_02_16
+  - first:
+      213: 5626198194861696265
+    second: Pua_02_17
+  - first:
+      213: -8760049342317386044
+    second: Pua_02_18
+  - first:
+      213: -4623222495400191431
+    second: Pua_02_19
+  - first:
+      213: 8085096267812061165
+    second: Pua_02_20
+  - first:
+      213: 8236763392956905904
+    second: Pua_02_21
+  - first:
+      213: -1797464990302280612
+    second: Pua_02_22
+  - first:
+      213: 2187231486042279564
+    second: Pua_02_23
+  - first:
+      213: 1827965880630122052
+    second: Pua_02_24
+  - first:
+      213: -6331262666266301004
+    second: Pua_02_25
+  - first:
+      213: 8032867878094622439
+    second: Pua_02_26
+  - first:
+      213: 3798232005869771900
+    second: Pua_02_27
+  - first:
+      213: -2774221182193123127
+    second: Pua_02_28
+  - first:
+      213: -1654584045762595669
+    second: Pua_02_29
+  - first:
+      213: -2293325357804539022
+    second: Pua_02_30
+  - first:
+      213: -6373589591419863583
+    second: Pua_02_31
+  - first:
+      213: 1860319511227810414
+    second: Pua_02_32
+  - first:
+      213: -7488479457348618788
+    second: Pua_02_33
+  - first:
+      213: 2457156073193428067
+    second: Pua_02_34
+  - first:
+      213: 5952620430238498478
+    second: Pua_02_35
+  - first:
+      213: -7725766709370614058
+    second: Pua_02_36
+  - first:
+      213: 8988493648805861279
+    second: Pua_02_37
+  - first:
+      213: -1103744872612073320
+    second: Pua_02_38
+  - first:
+      213: 3646410469008292003
+    second: Pua_02_39
+  - first:
+      213: 1396726062457072170
+    second: Pua_02_40
+  - first:
+      213: 2429149858488985900
+    second: Pua_02_41
+  - first:
+      213: -5079643418327397311
+    second: Pua_02_42
+  - first:
+      213: 6671989779867239027
+    second: Pua_02_43
+  - first:
+      213: 2740914597700821502
+    second: Pua_02_44
+  - first:
+      213: -9172417936767019801
+    second: Pua_02_45
+  - first:
+      213: -2225551512347801953
+    second: Pua_02_46
+  - first:
+      213: -4676466649667692600
+    second: Pua_02_47
+  - first:
+      213: 6254595007087135418
+    second: Pua_02_48
+  - first:
+      213: -4592082163658447489
+    second: Pua_02_49
+  - first:
+      213: -3125739174150417559
+    second: Pua_02_50
+  - first:
+      213: 3292906631337467237
+    second: Pua_02_51
+  - first:
+      213: 6202429856659367211
+    second: Pua_02_52
+  - first:
+      213: -7464110461585564620
+    second: Pua_02_53
+  - first:
+      213: 2744412678161496696
+    second: Pua_02_54
+  - first:
+      213: 8979960360533713341
+    second: Pua_02_55
+  - first:
+      213: 7781690541634419757
+    second: Pua_02_56
+  - first:
+      213: 3319728670374432249
+    second: Pua_02_57
+  - first:
+      213: 8380048095867862054
+    second: Pua_02_58
+  - first:
+      213: 7802682236101842721
+    second: Pua_02_59
+  - first:
+      213: 3163065291767146960
+    second: Pua_02_60
+  - first:
+      213: 8450779447054436069
+    second: Pua_02_61
+  - first:
+      213: 6173439919259937326
+    second: Pua_02_62
+  - first:
+      213: -2488254775476216976
+    second: Pua_02_63
+  - first:
+      213: -7790156807754833708
+    second: Pua_02_64
+  - first:
+      213: -1926084007370888585
+    second: Pua_02_65
+  - first:
+      213: 2512721196641760317
+    second: Pua_02_66
+  - first:
+      213: 3815568493123988561
+    second: Pua_02_67
+  - first:
+      213: 2287410625502051296
+    second: Pua_02_68
+  - first:
+      213: 2641896818990267216
+    second: Pua_02_69
+  - first:
+      213: -7866802761394591536
+    second: Pua_02_70
+  - first:
+      213: 2206496897926619973
+    second: Pua_02_71
+  - first:
+      213: -1085516082603475637
+    second: Pua_02_72
+  - first:
+      213: 2164913741347412619
+    second: Pua_02_73
+  - first:
+      213: 7938367399940562290
+    second: Pua_02_74
+  - first:
+      213: -1522219653131877492
+    second: Pua_02_75
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Pua_02_0
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 1904
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f48aea71efbc3ac70800000000000000
+      internalID: 8981246374086355023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_1
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 1874
+        width: 19
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05cc02b44b6b24df0800000000000000
+      internalID: -197394548180071344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_2
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 1901
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3dd005b7dbd7b4d60800000000000000
+      internalID: 7875526626158579155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_3
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 1894
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1bcd4e6e073a35350800000000000000
+      internalID: 6004322433520426161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_4
+      rect:
+        serializedVersion: 2
+        x: 582
+        y: 1786
+        width: 287
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf43feaaa7fda1a90800000000000000
+      internalID: -7342310524527364869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_5
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 1877
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a08d787a1f186090800000000000000
+      internalID: -8041142936118919002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_6
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 666
+        width: 940
+        height: 1040
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d11c263b338cc76f0800000000000000
+      internalID: -685452918888677091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_7
+      rect:
+        serializedVersion: 2
+        x: 936
+        y: 1607
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ac37b408fdd84370800000000000000
+      internalID: 8307133569985625251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_8
+      rect:
+        serializedVersion: 2
+        x: 952
+        y: 1607
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13b1d4b08fc45aab0800000000000000
+      internalID: -4997503583272494287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_9
+      rect:
+        serializedVersion: 2
+        x: 936
+        y: 1600
+        width: 15
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a8a8fc9ba480a240800000000000000
+      internalID: 4800983075384764580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_10
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 1040
+        width: 46
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df351d765ee069070800000000000000
+      internalID: 8112688157206598653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_11
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 1033
+        width: 26
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed01acbf84cd1f7b0800000000000000
+      internalID: -5192126689361391394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_12
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 1020
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5a230c01bc07ca90800000000000000
+      internalID: -7293847116952950182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_13
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 1013
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27df17eb723019140800000000000000
+      internalID: 4724560953322110322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_14
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 1000
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a7faf632488bf2e0800000000000000
+      internalID: -2090927784011827296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 566
+        width: 77
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3da9c1aa18cd0b710800000000000000
+      internalID: 1707106708236311251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_16
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 606
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eec0de9fac8002410800000000000000
+      internalID: 1450168747882777838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_17
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 606
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 905eca80375441e40800000000000000
+      internalID: 5626198194861696265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_18
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 606
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c62740398d0e6680800000000000000
+      internalID: -8760049342317386044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_19
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 586
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93a9314a2a307dfb0800000000000000
+      internalID: -4623222495400191431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_20
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 579
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: def36c90838043070800000000000000
+      internalID: 8085096267812061165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_21
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 566
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b933286aacde4270800000000000000
+      internalID: 8236763392956905904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_22
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 559
+        width: 26
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c54e4dc5d1f1e07e0800000000000000
+      internalID: -1797464990302280612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_23
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 559
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8e8917b27b9a5e10800000000000000
+      internalID: 2187231486042279564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_24
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 559
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4461e70984d3e5910800000000000000
+      internalID: 1827965880630122052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_25
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 559
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bd21854626d228a0800000000000000
+      internalID: -6331262666266301004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_26
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 559
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7eec97176ca7a7f60800000000000000
+      internalID: 8032867878094622439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_27
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 539
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7c136ca2e706b430800000000000000
+      internalID: 3798232005869771900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_28
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 539
+        width: 25
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c0c303888cff79d0800000000000000
+      internalID: -2774221182193123127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_29
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 546
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba4ba45a39cb909e0800000000000000
+      internalID: -1654584045762595669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_30
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 526
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2733aa5dcb87c20e0800000000000000
+      internalID: -2293325357804539022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_31
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 526
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1edba4b09067c87a0800000000000000
+      internalID: -6373589591419863583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_32
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 532
+        width: 25
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e6246733dbe21d910800000000000000
+      internalID: 1860319511227810414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_33
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 526
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd5fce4fb93931890800000000000000
+      internalID: -7488479457348618788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_34
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 532
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36453641e62991220800000000000000
+      internalID: 2457156073193428067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_35
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 532
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eae39133eb4fb9250800000000000000
+      internalID: 5952620430238498478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_36
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 526
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6de0d665c1098c490800000000000000
+      internalID: -7725766709370614058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_37
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 472
+        width: 42
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f979deab95b8dbc70800000000000000
+      internalID: 8988493648805861279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_38
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 446
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8907c41e2e5bea0f0800000000000000
+      internalID: -1103744872612073320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_39
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 393
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a831868007aa9230800000000000000
+      internalID: 3646410469008292003
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_40
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 379
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2aa84124fa226310800000000000000
+      internalID: 1396726062457072170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_41
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 372
+        width: 23
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c292d651de216b120800000000000000
+      internalID: 2429149858488985900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_42
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 359
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14cc1f0693b7189b0800000000000000
+      internalID: -5079643418327397311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_43
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 352
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3720606ea5ba79c50800000000000000
+      internalID: 6671989779867239027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_44
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 352
+        width: 33
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef1e3abfd4fa90620800000000000000
+      internalID: 2740914597700821502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_45
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 339
+        width: 19
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e4949beb7605b080800000000000000
+      internalID: -9172417936767019801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_46
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 426
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f960d25e0b04d11e0800000000000000
+      internalID: -2225551512347801953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_47
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 346
+        width: 96
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c7989eeb5ad91fb0800000000000000
+      internalID: -4676466649667692600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_48
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 272
+        width: 26
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aba4c5b4509ccc650800000000000000
+      internalID: 6254595007087135418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_49
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 234
+        width: 173
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f752bbf1a95a540c0800000000000000
+      internalID: -4592082163658447489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_50
+      rect:
+        serializedVersion: 2
+        x: 871
+        y: 290
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 963dd3038c42f94d0800000000000000
+      internalID: -3125739174150417559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_51
+      rect:
+        serializedVersion: 2
+        x: 874
+        y: 281
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56dd5677221c2bd20800000000000000
+      internalID: 3292906631337467237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_52
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 259
+        width: 26
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b25657eb715731650800000000000000
+      internalID: 6202429856659367211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_53
+      rect:
+        serializedVersion: 2
+        x: 878
+        y: 271
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43c5aece4172a6890800000000000000
+      internalID: -7464110461585564620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_54
+      rect:
+        serializedVersion: 2
+        x: 881
+        y: 241
+        width: 18
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87af4ee4acc161620800000000000000
+      internalID: 2744412678161496696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_55
+      rect:
+        serializedVersion: 2
+        x: 205
+        y: 252
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db163babe5a3f9c70800000000000000
+      internalID: 8979960360533713341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_56
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 232
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2cf226815e1efb60800000000000000
+      internalID: 7781690541634419757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_57
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 0
+        width: 420
+        height: 241
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fd095413ab021e20800000000000000
+      internalID: 3319728670374432249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_58
+      rect:
+        serializedVersion: 2
+        x: 891
+        y: 231
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62c74e20859eb4470800000000000000
+      internalID: 8380048095867862054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_59
+      rect:
+        serializedVersion: 2
+        x: 894
+        y: 221
+        width: 12
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 127d9124722b84c60800000000000000
+      internalID: 7802682236101842721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_60
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 219
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d9e52dcf1775eb20800000000000000
+      internalID: 3163065291767146960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_61
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 219
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e60ad80223374570800000000000000
+      internalID: 8450779447054436069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_62
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 219
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2a64b5f5e67ca550800000000000000
+      internalID: 6173439919259937326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_63
+      rect:
+        serializedVersion: 2
+        x: 898
+        y: 211
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07b121d0771f77dd0800000000000000
+      internalID: -2488254775476216976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_64
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 199
+        width: 26
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d0ae2948adc3e390800000000000000
+      internalID: -7790156807754833708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_65
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 212
+        width: 19
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77ae815dccc2545e0800000000000000
+      internalID: -1926084007370888585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_66
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 212
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d343d698d9afed220800000000000000
+      internalID: 2512721196641760317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_67
+      rect:
+        serializedVersion: 2
+        x: 901
+        y: 151
+        width: 28
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15ce3d8245f93f430800000000000000
+      internalID: 3815568493123988561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_68
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 205
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ebf08c38d38ebf10800000000000000
+      internalID: 2287410625502051296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_69
+      rect:
+        serializedVersion: 2
+        x: 921
+        y: 138
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05b3625d827e9a420800000000000000
+      internalID: 2641896818990267216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_70
+      rect:
+        serializedVersion: 2
+        x: 924
+        y: 128
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d86301919083d290800000000000000
+      internalID: -7866802761394591536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_71
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 121
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 543eae6fc3d0f9e10800000000000000
+      internalID: 2206496897926619973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_72
+      rect:
+        serializedVersion: 2
+        x: 931
+        y: 111
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4d327acfd87fe0f0800000000000000
+      internalID: -1085516082603475637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_73
+      rect:
+        serializedVersion: 2
+        x: 934
+        y: 71
+        width: 24
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8adf5ad3915b0e10800000000000000
+      internalID: 2164913741347412619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_74
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 61
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27d9ff9471fba2e60800000000000000
+      internalID: 7938367399940562290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pua_02_75
+      rect:
+        serializedVersion: 2
+        x: 951
+        y: 0
+        width: 31
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c83c4f06a4dffdae0800000000000000
+      internalID: -1522219653131877492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Pua_02_0: 8981246374086355023
+      Pua_02_1: -197394548180071344
+      Pua_02_10: 8112688157206598653
+      Pua_02_11: -5192126689361391394
+      Pua_02_12: -7293847116952950182
+      Pua_02_13: 4724560953322110322
+      Pua_02_14: -2090927784011827296
+      Pua_02_15: 1707106708236311251
+      Pua_02_16: 1450168747882777838
+      Pua_02_17: 5626198194861696265
+      Pua_02_18: -8760049342317386044
+      Pua_02_19: -4623222495400191431
+      Pua_02_2: 7875526626158579155
+      Pua_02_20: 8085096267812061165
+      Pua_02_21: 8236763392956905904
+      Pua_02_22: -1797464990302280612
+      Pua_02_23: 2187231486042279564
+      Pua_02_24: 1827965880630122052
+      Pua_02_25: -6331262666266301004
+      Pua_02_26: 8032867878094622439
+      Pua_02_27: 3798232005869771900
+      Pua_02_28: -2774221182193123127
+      Pua_02_29: -1654584045762595669
+      Pua_02_3: 6004322433520426161
+      Pua_02_30: -2293325357804539022
+      Pua_02_31: -6373589591419863583
+      Pua_02_32: 1860319511227810414
+      Pua_02_33: -7488479457348618788
+      Pua_02_34: 2457156073193428067
+      Pua_02_35: 5952620430238498478
+      Pua_02_36: -7725766709370614058
+      Pua_02_37: 8988493648805861279
+      Pua_02_38: -1103744872612073320
+      Pua_02_39: 3646410469008292003
+      Pua_02_4: -7342310524527364869
+      Pua_02_40: 1396726062457072170
+      Pua_02_41: 2429149858488985900
+      Pua_02_42: -5079643418327397311
+      Pua_02_43: 6671989779867239027
+      Pua_02_44: 2740914597700821502
+      Pua_02_45: -9172417936767019801
+      Pua_02_46: -2225551512347801953
+      Pua_02_47: -4676466649667692600
+      Pua_02_48: 6254595007087135418
+      Pua_02_49: -4592082163658447489
+      Pua_02_5: -8041142936118919002
+      Pua_02_50: -3125739174150417559
+      Pua_02_51: 3292906631337467237
+      Pua_02_52: 6202429856659367211
+      Pua_02_53: -7464110461585564620
+      Pua_02_54: 2744412678161496696
+      Pua_02_55: 8979960360533713341
+      Pua_02_56: 7781690541634419757
+      Pua_02_57: 3319728670374432249
+      Pua_02_58: 8380048095867862054
+      Pua_02_59: 7802682236101842721
+      Pua_02_6: -685452918888677091
+      Pua_02_60: 3163065291767146960
+      Pua_02_61: 8450779447054436069
+      Pua_02_62: 6173439919259937326
+      Pua_02_63: -2488254775476216976
+      Pua_02_64: -7790156807754833708
+      Pua_02_65: -1926084007370888585
+      Pua_02_66: 2512721196641760317
+      Pua_02_67: 3815568493123988561
+      Pua_02_68: 2287410625502051296
+      Pua_02_69: 2641896818990267216
+      Pua_02_7: 8307133569985625251
+      Pua_02_70: -7866802761394591536
+      Pua_02_71: 2206496897926619973
+      Pua_02_72: -1085516082603475637
+      Pua_02_73: 2164913741347412619
+      Pua_02_74: 7938367399940562290
+      Pua_02_75: -1522219653131877492
+      Pua_02_8: -4997503583272494287
+      Pua_02_9: 4800983075384764580
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

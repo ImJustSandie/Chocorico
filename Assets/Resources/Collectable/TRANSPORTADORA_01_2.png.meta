@@ -1,0 +1,494 @@
+fileFormatVersion: 2
+guid: 38d1ad95faee30940afb3e655e9b0ae8
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 5184184495452997324
+    second: TRANSPORTADORA_01_2_0
+  - first:
+      213: 7989574047081908038
+    second: TRANSPORTADORA_01_2_1
+  - first:
+      213: 2701283150742315458
+    second: TRANSPORTADORA_01_2_2
+  - first:
+      213: 5965429871451861050
+    second: TRANSPORTADORA_01_2_3
+  - first:
+      213: -7637581379790283980
+    second: TRANSPORTADORA_01_2_4
+  - first:
+      213: -2835266853788994863
+    second: TRANSPORTADORA_01_2_5
+  - first:
+      213: -7221097137290094966
+    second: TRANSPORTADORA_01_2_6
+  - first:
+      213: 2797295918266890792
+    second: TRANSPORTADORA_01_2_7
+  - first:
+      213: -1970689834898391817
+    second: TRANSPORTADORA_01_2_8
+  - first:
+      213: 3365148849418677848
+    second: TRANSPORTADORA_01_2_9
+  - first:
+      213: 2879056739681230581
+    second: TRANSPORTADORA_01_2_10
+  - first:
+      213: -1461937001546321288
+    second: TRANSPORTADORA_01_2_11
+  - first:
+      213: -1555617554756897021
+    second: TRANSPORTADORA_01_2_12
+  - first:
+      213: -1320626302355224347
+    second: TRANSPORTADORA_01_2_13
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TRANSPORTADORA_01_2_0
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 0
+        width: 225
+        height: 1898
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc64095e45ce1f740800000000000000
+      internalID: 5184184495452997324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TRANSPORTADORA_01_2_1
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 1522
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6474ff6e34ba0ee60800000000000000
+      internalID: 7989574047081908038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TRANSPORTADORA_01_2_2
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 1359
+        width: 14
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c16ebda6b2ec7520800000000000000
+      internalID: 2701283150742315458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TRANSPORTADORA_01_2_3
+      rect:
+        serializedVersion: 2
+        x: 361
+        y: 1356
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a307464acd679c250800000000000000
+      internalID: 5965429871451861050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TRANSPORTADORA_01_2_4
+      rect:
+        serializedVersion: 2
+        x: 356
+        y: 1346
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43b5672633cd10690800000000000000
+      internalID: -7637581379790283980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TRANSPORTADORA_01_2_5
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 1277
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d2b77081db17a8d0800000000000000
+      internalID: -2835266853788994863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TRANSPORTADORA_01_2_6
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 1232
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a86db33a96289cb90800000000000000
+      internalID: -7221097137290094966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TRANSPORTADORA_01_2_7
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 1198
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82ab2f321ddf1d620800000000000000
+      internalID: 2797295918266890792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TRANSPORTADORA_01_2_8
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 809
+        width: 6
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fc786c4904b6a4e0800000000000000
+      internalID: -1970689834898391817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TRANSPORTADORA_01_2_9
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 650
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85e2ae99c0963be20800000000000000
+      internalID: 3365148849418677848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TRANSPORTADORA_01_2_10
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 623
+        width: 6
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fed4e0d9d674f720800000000000000
+      internalID: 2879056739681230581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TRANSPORTADORA_01_2_11
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 609
+        width: 11
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 872f4d2fa0826bbe0800000000000000
+      internalID: -1461937001546321288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TRANSPORTADORA_01_2_12
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 464
+        width: 13
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3077a527316596ae0800000000000000
+      internalID: -1555617554756897021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TRANSPORTADORA_01_2_13
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 429
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5e8441fff513cade0800000000000000
+      internalID: -1320626302355224347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      TRANSPORTADORA_01_2_0: 5184184495452997324
+      TRANSPORTADORA_01_2_1: 7989574047081908038
+      TRANSPORTADORA_01_2_10: 2879056739681230581
+      TRANSPORTADORA_01_2_11: -1461937001546321288
+      TRANSPORTADORA_01_2_12: -1555617554756897021
+      TRANSPORTADORA_01_2_13: -1320626302355224347
+      TRANSPORTADORA_01_2_2: 2701283150742315458
+      TRANSPORTADORA_01_2_3: 5965429871451861050
+      TRANSPORTADORA_01_2_4: -7637581379790283980
+      TRANSPORTADORA_01_2_5: -2835266853788994863
+      TRANSPORTADORA_01_2_6: -7221097137290094966
+      TRANSPORTADORA_01_2_7: 2797295918266890792
+      TRANSPORTADORA_01_2_8: -1970689834898391817
+      TRANSPORTADORA_01_2_9: 3365148849418677848
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
