@@ -67,6 +67,10 @@ public class PlayerManager : MonoBehaviour
     // Escala inicial del modelo (para hacer flip sin perder la escala original)
     private Vector3 initialScale;
 
+    [Header("Animación")]
+    [Tooltip("Referencia al Animator del personaje. Expone los parámetros Anim_Clinging y Anim_Jumping.")]
+    public Animator animator;
+
     [Header("God Mode (Testing)")]
     [Tooltip("Activa el God Mode: no pierde energía y revive al centro al caer")]
     [SerializeField] private bool isGodMode = false;
@@ -258,6 +262,13 @@ public class PlayerManager : MonoBehaviour
 
         beltTouchId = touchId;
         currentState = PlayerState.AgainstBelt;
+
+        // Animación: pegado a la pared avanzando contra la cinta
+        if (animator != null)
+        {
+            animator.SetBool("Anim_Clinging", true);
+            animator.SetBool("Anim_Jumping", false);
+        }
     }
 
     /// <summary>
@@ -270,6 +281,13 @@ public class PlayerManager : MonoBehaviour
         {
             currentState = PlayerState.Clinging;
             ApplyWallSlide();
+
+            // Animación: deslizamiento normal en la pared (Clinging)
+            if (animator != null)
+            {
+                animator.SetBool("Anim_Clinging", true);
+                animator.SetBool("Anim_Jumping", false);
+            }
         }
     }
 
@@ -292,6 +310,13 @@ public class PlayerManager : MonoBehaviour
             currentState = PlayerState.Falling;
             float fallGravity = GameManager.Instance != null ? GameManager.Instance.FallGravity : 5f;
             rb.linearVelocity = new Vector2(0f, -fallGravity);
+
+            // Animación: caída libre (en el aire, sin control)
+            if (animator != null)
+            {
+                animator.SetBool("Anim_Clinging", false);
+                animator.SetBool("Anim_Jumping", true);
+            }
             return;
         }
 
@@ -307,6 +332,13 @@ public class PlayerManager : MonoBehaviour
         rb.linearVelocity = new Vector2(vx, vy);
 
         SetFacing(horizontalDir);
+
+        // Animación: saltando hacia la pared opuesta
+        if (animator != null)
+        {
+            animator.SetBool("Anim_Clinging", false);
+            animator.SetBool("Anim_Jumping", true);
+        }
     }
 
     /// <summary>
@@ -364,6 +396,13 @@ public class PlayerManager : MonoBehaviour
             currentState = PlayerState.Falling;
             float fallGravity = GameManager.Instance != null ? GameManager.Instance.FallGravity : 5f;
             rb.linearVelocity = new Vector2(0f, -fallGravity);
+
+            // Animación: caída por cancelación sin energía
+            if (animator != null)
+            {
+                animator.SetBool("Anim_Clinging", false);
+                animator.SetBool("Anim_Jumping", true);
+            }
             return;
         }
 
@@ -376,6 +415,7 @@ public class PlayerManager : MonoBehaviour
         rb.linearVelocity = new Vector2(returnHorizontalDir * jumpForceX, rb.linearVelocity.y);
 
         SetFacing(returnHorizontalDir);
+        // El jugador sigue en el aire regresando: mantiene Anim_Jumping activo
     }
 
     /// <summary>
@@ -428,6 +468,13 @@ public class PlayerManager : MonoBehaviour
         {
             currentState = PlayerState.Idle;
             rb.linearVelocity = Vector2.zero;
+
+            // Animación: idle esperando el primer tap
+            if (animator != null)
+            {
+                animator.SetBool("Anim_Clinging", false);
+                animator.SetBool("Anim_Jumping", false);
+            }
             return;
         }
 
@@ -436,12 +483,26 @@ public class PlayerManager : MonoBehaviour
             currentWall = WallSide.Left;
             currentState = PlayerState.Clinging;
             ApplyWallSlide();
+
+            // Animación: aterrizó en la pared izquierda
+            if (animator != null)
+            {
+                animator.SetBool("Anim_Clinging", true);
+                animator.SetBool("Anim_Jumping", false);
+            }
         }
         else if (collision.gameObject.CompareTag("WallRight"))
         {
             currentWall = WallSide.Right;
             currentState = PlayerState.Clinging;
             ApplyWallSlide();
+
+            // Animación: aterrizó en la pared derecha
+            if (animator != null)
+            {
+                animator.SetBool("Anim_Clinging", true);
+                animator.SetBool("Anim_Jumping", false);
+            }
         }
     }
 
@@ -457,6 +518,13 @@ public class PlayerManager : MonoBehaviour
         bounceForce = force;
         bounceTimer = duration;
         rb.linearVelocity = new Vector2(horizontalDir * force, 0f);
+
+        // Animación: rebote por choque con púas (sigue en el aire)
+        if (animator != null)
+        {
+            animator.SetBool("Anim_Clinging", false);
+            animator.SetBool("Anim_Jumping", true);
+        }
     }
 
     private void RespawnAtWall()
