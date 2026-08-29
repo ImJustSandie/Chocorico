@@ -33,6 +33,7 @@ public class WallObjectSpawner : MonoBehaviour
     private float nextAguardienteSpawn;
     private float nextPuaSpawn;
     private bool aguardienteActive = false;
+    private bool hasScheduled = false;
 
     private const float spawnRetryDelay = 0.5f;
 
@@ -40,8 +41,8 @@ public class WallObjectSpawner : MonoBehaviour
 
     void Start()
     {
-        ScheduleNextAguardiente();
-        ScheduleNextPua();
+        // Los timers se programan la primera vez que CanSpawn se vuelve true
+        // para evitar que todo spawnee de golpe al iniciar la partida
     }
 
     void Update()
@@ -49,6 +50,14 @@ public class WallObjectSpawner : MonoBehaviour
         // No generar objetos si la partida no ha comenzado o ya terminó
         if (GameManager.Instance == null || !GameManager.Instance.CanSpawn)
             return;
+
+        // Programar los timers la primera vez que el juego comienza
+        if (!hasScheduled)
+        {
+            ScheduleNextAguardiente();
+            ScheduleNextPua();
+            hasScheduled = true;
+        }
 
         if (Time.time >= nextAguardienteSpawn && !aguardienteActive)
         {

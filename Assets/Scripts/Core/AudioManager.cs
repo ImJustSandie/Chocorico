@@ -59,6 +59,18 @@ public class AudioManager : MonoBehaviour
             return;
         }
         Instance = this;
+
+        if (musicSource != null)
+        {
+            musicSource.playOnAwake = false;
+            if (gameplayMusic != null)
+                musicSource.clip = gameplayMusic;
+        }
+        
+        if (sfxSource != null)
+        {
+            sfxSource.playOnAwake = false;
+        }
     }
 
     void OnDestroy()

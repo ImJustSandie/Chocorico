@@ -124,6 +124,12 @@ public class EnergyItem : MonoBehaviour
 
                 if (AudioManager.Instance != null)
                     AudioManager.Instance.PlaySfx(AudioManager.SfxType.NegativeItem);
+
+                // Registrar consumo de patito para desbloqueo de skin
+                if (SkinUnlockManager.Instance != null)
+                {
+                    SkinUnlockManager.Instance.RegisterPatitoConsumed();
+                }
             }
 
             // Otorgar puntuación por recoger el objeto

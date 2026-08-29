@@ -60,7 +60,15 @@ public class AguardienteItem : WallObject
         if (AudioManager.Instance != null)
             AudioManager.Instance.PlaySfx(AudioManager.SfxType.Aguardiente);
 
+        // Registrar consumo de aguardiente para desbloqueo de skin
+        if (SkinUnlockManager.Instance != null)
+        {
+            SkinUnlockManager.Instance.RegisterAguardienteConsumed(tier);
+        }
+
         int score;
+        float effectDuration;
+        Color barColor;
 
         switch (tier)
         {
@@ -70,23 +78,37 @@ public class AguardienteItem : WallObject
                     LevelManager.Instance.ApplyConveyorSlowdown(tier1SlowdownDuration, tier1SlowdownMultiplier);
                 }
                 score = tier1Score;
+                effectDuration = tier1SlowdownDuration;
+                barColor = tier1Color;
                 break;
 
             case Tier.Tier2:
                 // Tier 2: pausa SOLO el drenaje pasivo; DrainEnergy (púas, ítems negativos) sigue funcionando
                 energyManager.PauseDrain(tier2Duration);
                 score = tier2Score;
+                effectDuration = tier2Duration;
+                barColor = tier2Color;
                 break;
 
             case Tier.Tier3:
                 // Tier 3: rellena la barra de energía al máximo
                 energyManager.AddEnergy(energyManager.MaxEnergy);
                 score = tier3Score;
+                effectDuration = 1f;
+                barColor = tier3Color;
                 break;
 
             default:
                 score = 0;
+                effectDuration = 0f;
+                barColor = Color.white;
                 break;
+        }
+
+        // Cambiar color de la barra según el tier del aguardiente
+        if (energyManager != null)
+        {
+            energyManager.SetBarColorForDuration(barColor, effectDuration);
         }
 
         if (ScoreManager.Instance != null)

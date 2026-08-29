@@ -41,6 +41,35 @@ public class BackgroundManager : MonoBehaviour
     [Tooltip("Sprites, tinte y color de fondo para el nivel 3")]
     [SerializeField] private LevelBackgroundConfig level3 = new LevelBackgroundConfig();
 
+    [Tooltip("Sprites, tinte y color de fondo para el nivel 4")]
+    [SerializeField] private LevelBackgroundConfig level4 = new LevelBackgroundConfig();
+
+    [Header("Nivel 4 - Colores Dinámicos")]
+    [Tooltip("Lista de colores para los objetos decorativos del nivel 4 (se elige aleatoriamente)")]
+    [SerializeField] private Color[] level4DecorColors = new Color[]
+    {
+        Color.red,
+        Color.green,
+        Color.blue,
+        Color.yellow,
+        Color.cyan,
+        Color.magenta
+    };
+
+    [Tooltip("Lista de colores para el fondo del nivel 4 (transiciones periódicas)")]
+    [SerializeField] private Color[] level4BackgroundColors = new Color[]
+    {
+        new Color(0.8f, 0.2f, 0.2f),
+        new Color(0.2f, 0.8f, 0.2f),
+        new Color(0.2f, 0.2f, 0.8f),
+        new Color(0.8f, 0.8f, 0.2f),
+        new Color(0.2f, 0.8f, 0.8f),
+        new Color(0.8f, 0.2f, 0.8f)
+    };
+
+    [Tooltip("Intervalo de cambio de color de fondo en el nivel 4 (segundos)")]
+    [SerializeField] private float level4ColorChangeInterval = 5f;
+
     [Header("Generación")]
     [Tooltip("Tiempo mínimo entre generaciones (segundos)")]
     [SerializeField] private float minSpawnInterval = 1.5f;
@@ -94,6 +123,8 @@ public class BackgroundManager : MonoBehaviour
     private float timer = 0f;
     private float nextSpawnTime = 1f;
     private Tween backgroundColorTween;
+    private float level4ColorTimer = 0f;
+    private int lastLevel4BackgroundColorIndex = -1;
 
     // Objetos decorativos activos: el manager los mueve y los destruye al salir de pantalla
     private readonly List<ActiveDecor> activeDecor = new List<ActiveDecor>();
@@ -145,6 +176,17 @@ public class BackgroundManager : MonoBehaviour
             timer = 0f;
             SetNextSpawnTime();
         }
+
+        // Nivel 4: cambio de color de fondo periódico
+        if (GetCurrentLevel() == 4)
+        {
+            level4ColorTimer += Time.deltaTime;
+            if (level4ColorTimer >= level4ColorChangeInterval)
+            {
+                ApplyLevel4BackgroundColor();
+                level4ColorTimer = 0f;
+            }
+        }
     }
 
     /// <summary>
@@ -184,6 +226,13 @@ public class BackgroundManager : MonoBehaviour
     private void OnLevelChanged(int level)
     {
         ApplyBackgroundColor(GetConfigForLevel(level), instant: false);
+        
+        // Resetear timer de color del nivel 4
+        if (level == 4)
+        {
+            level4ColorTimer = 0f;
+            lastLevel4BackgroundColorIndex = -1;
+        }
     }
 
     /// <summary>
@@ -226,7 +275,15 @@ public class BackgroundManager : MonoBehaviour
         if (decor != null)
         {
             Sprite sprite = hasSprites ? config.sprites[Random.Range(0, config.sprites.Length)] : null;
-            decor.Setup(sprite, config.spriteTintColor, sortingOrder);
+            
+            // Nivel 4: usar color aleatorio de la lista
+            Color tintColor = config.spriteTintColor;
+            if (GetCurrentLevel() == 4 && level4DecorColors != null && level4DecorColors.Length > 0)
+            {
+                tintColor = level4DecorColors[Random.Range(0, level4DecorColors.Length)];
+            }
+            
+            decor.Setup(sprite, tintColor, sortingOrder);
 
             activeDecor.Add(new ActiveDecor
             {
@@ -321,6 +378,7 @@ public class BackgroundManager : MonoBehaviour
         {
             2 => level2,
             3 => level3,
+            4 => level4,
             _ => level1
         };
     }
@@ -333,5 +391,41 @@ public class BackgroundManager : MonoBehaviour
     private void SetNextSpawnTime()
     {
         nextSpawnTime = Random.Range(minSpawnInterval, maxSpawnInterval);
+    }
+
+    /// <summary>
+    /// Aplica un color de fondo aleatorio del nivel 4, evitando repetir el mismo color consecutivamente.
+    /// </summary>
+    private void ApplyLevel4BackgroundColor()
+    {
+        if (level4BackgroundColors == null || level4BackgroundColors.Length == 0)
+            return;
+
+        Camera cam = (targetCamera != null) ? targetCamera : Camera.main;
+        if (cam == null)
+        {
+            Debug.LogWarning("BackgroundManager: No se encontró cámara para cambiar el fondo.");
+            return;
+        }
+
+        // Elegir un color diferente al actual
+        int colorIndex = Random.Range(0, level4BackgroundColors.Length);
+        if (level4BackgroundColors.Length > 1)
+        {
+            while (colorIndex == lastLevel4BackgroundColorIndex)
+            {
+                colorIndex = Random.Range(0, level4BackgroundColors.Length);
+            }
+        }
+        lastLevel4BackgroundColorIndex = colorIndex;
+
+        Color targetColor = level4BackgroundColors[colorIndex];
+
+        if (backgroundColorTween != null && backgroundColorTween.IsActive())
+        {
+            backgroundColorTween.Kill();
+        }
+
+        backgroundColorTween = cam.DOColor(targetColor, transitionDuration).SetEase(ease);
     }
 }

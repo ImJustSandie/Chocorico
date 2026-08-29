@@ -47,6 +47,16 @@ public class SkinSelectionManager : MonoBehaviour
     [Tooltip("Nombre de la escena de juego a cargar tras seleccionar skin")]
     [SerializeField] private string gameSceneName = "game";
 
+    [Header("Skins Bloqueadas")]
+    [Tooltip("Material negro para mostrar skins bloqueadas")]
+    [SerializeField] private Material lockedSkinMaterial;
+
+    [Tooltip("Botón de jugar/seleccionar (se deshabilita si la skin está bloqueada)")]
+    [SerializeField] private Button playButton;
+
+    [Tooltip("Texto de condición de desbloqueo (se muestra en lugar de la descripción si está bloqueada)")]
+    [SerializeField] private TextMeshProUGUI unlockConditionText;
+
     private int currentIndex = 0;
 
     private void Start()
@@ -144,27 +154,54 @@ public class SkinSelectionManager : MonoBehaviour
         SkinData currentSkin = database.GetSkin(currentIndex);
         if (currentSkin == null) return;
 
+        bool isUnlocked = SkinUnlockManager.Instance != null ? SkinUnlockManager.Instance.IsSkinUnlocked(currentIndex) : true;
+
         // Aplicar Material(es) a los Renderers del modelo de vista previa
-        if (previewRenderers != null && previewRenderers.Length > 0)
+        if (isUnlocked)
         {
-            for (int i = 0; i < previewRenderers.Length; i++)
+            // Skin desbloqueada: aplicar material normal
+            if (previewRenderers != null && previewRenderers.Length > 0)
             {
-                if (previewRenderers[i] != null)
+                for (int i = 0; i < previewRenderers.Length; i++)
                 {
-                    Material mat = currentSkin.GetMaterialForRenderer(i);
-                    if (mat != null)
+                    if (previewRenderers[i] != null)
                     {
-                        previewRenderers[i].material = mat;
+                        Material mat = currentSkin.GetMaterialForRenderer(i);
+                        if (mat != null)
+                        {
+                            previewRenderers[i].material = mat;
+                        }
                     }
                 }
             }
-        }
-        else if (previewRenderer != null)
-        {
-            Material mat = currentSkin.GetMaterialForRenderer(0);
-            if (mat != null)
+            else if (previewRenderer != null)
             {
-                previewRenderer.material = mat;
+                Material mat = currentSkin.GetMaterialForRenderer(0);
+                if (mat != null)
+                {
+                    previewRenderer.material = mat;
+                }
+            }
+        }
+        else
+        {
+            // Skin bloqueada: aplicar material negro
+            if (lockedSkinMaterial != null)
+            {
+                if (previewRenderers != null && previewRenderers.Length > 0)
+                {
+                    for (int i = 0; i < previewRenderers.Length; i++)
+                    {
+                        if (previewRenderers[i] != null)
+                        {
+                            previewRenderers[i].material = lockedSkinMaterial;
+                        }
+                    }
+                }
+                else if (previewRenderer != null)
+                {
+                    previewRenderer.material = lockedSkinMaterial;
+                }
             }
         }
 
@@ -174,9 +211,26 @@ public class SkinSelectionManager : MonoBehaviour
             skinNameText.text = string.IsNullOrEmpty(currentSkin.skinName) ? $"Skin {currentIndex + 1}" : currentSkin.skinName;
         }
 
-        if (skinDescriptionText != null)
+        // Mostrar descripción o condición de desbloqueo
+        if (isUnlocked)
         {
-            skinDescriptionText.text = currentSkin.description ?? "";
+            if (skinDescriptionText != null)
+            {
+                skinDescriptionText.text = currentSkin.description ?? "";
+            }
+        }
+        else
+        {
+            string condition = SkinUnlockManager.Instance != null ? SkinUnlockManager.Instance.GetUnlockCondition(currentIndex) : "";
+            if (skinDescriptionText != null)
+            {
+                skinDescriptionText.text = $"Bloqueado: {condition}";
+            }
+            if (unlockConditionText != null && unlockConditionText != skinDescriptionText)
+            {
+                unlockConditionText.text = $"Bloqueado: {condition}";
+                unlockConditionText.gameObject.SetActive(true);
+            }
         }
 
         // Actualizar UI de ícono
@@ -191,6 +245,12 @@ public class SkinSelectionManager : MonoBehaviour
             {
                 skinIconImage.gameObject.SetActive(false);
             }
+        }
+
+        // Habilitar/deshabilitar botón de jugar
+        if (playButton != null)
+        {
+            playButton.interactable = isUnlocked;
         }
     }
 }

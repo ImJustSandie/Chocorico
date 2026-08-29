@@ -28,6 +28,19 @@ public class EnergyManager : MonoBehaviour
     [Tooltip("Referencia a la Image (Filled) de la barra de energía")]
     [SerializeField] private Image energyBar;
 
+    [Header("Colores de la Barra")]
+    [Tooltip("Color por defecto de la barra de energía")]
+    [SerializeField] private Color defaultColor = new Color(37f/255f, 150f/255f, 190f/255f);
+    
+    [Tooltip("Color cuando se pierde energía (drenaje)")]
+    [SerializeField] private Color drainColor = Color.blue;
+    
+    [Tooltip("Color cuando se gana energía")]
+    [SerializeField] private Color gainColor = Color.red;
+    
+    [Tooltip("Duración del efecto de color temporal (segundos)")]
+    [SerializeField] private float colorEffectDuration = 0.3f;
+
     [Header("Shake de la barra (DOTween)")]
     [Tooltip("Duración del shake cuando se pierde energía por púas o ítems negativos")]
     [SerializeField] private float energyBarShakeDuration = 0.3f;
@@ -42,6 +55,7 @@ public class EnergyManager : MonoBehaviour
     private float debuffTimer = 0f;
     private float drainPauseTimer = 0f;
     private bool isGameStarted = false;
+    private Tween colorTween;
 
     /// <summary>
     /// Energía actual del jugador (solo lectura).
@@ -80,6 +94,7 @@ public class EnergyManager : MonoBehaviour
     {
         currentEnergy = maxEnergy;
         UpdateEnergyBar();
+        SetBarColor(defaultColor);
 
         if (energyBar == null)
         {
@@ -165,6 +180,7 @@ public class EnergyManager : MonoBehaviour
     {
         currentEnergy = Mathf.Min(currentEnergy + amount, maxEnergy);
         UpdateEnergyBar();
+        FlashColorTemporary(gainColor);
     }
 
     public void PauseDrain(float duration)
@@ -178,6 +194,7 @@ public class EnergyManager : MonoBehaviour
         currentEnergy = Mathf.Max(currentEnergy, 0f);
         UpdateEnergyBar();
         ShakeEnergyBar();
+        FlashColorTemporary(drainColor);
     }
 
     /// <summary>
@@ -218,4 +235,49 @@ public class EnergyManager : MonoBehaviour
     }
 
     private Tween energyBarShakeTween;
+
+    /// <summary>
+    /// Cambia el color de la barra de energía inmediatamente.
+    /// </summary>
+    public void SetBarColor(Color color)
+    {
+        if (energyBar != null)
+        {
+            energyBar.color = color;
+        }
+    }
+
+    /// <summary>
+    /// Cambia el color de la barra temporalmente y luego vuelve al color por defecto.
+    /// </summary>
+    public void FlashColorTemporary(Color flashColor)
+    {
+        if (energyBar == null) return;
+
+        if (colorTween != null && colorTween.IsActive())
+        {
+            colorTween.Kill();
+        }
+
+        energyBar.color = flashColor;
+        colorTween = DOTween.To(() => flashColor, c => energyBar.color = c, defaultColor, colorEffectDuration)
+            .SetEase(Ease.OutQuad);
+    }
+
+    /// <summary>
+    /// Cambia el color de la barra por una duración específica (para aguardientes).
+    /// </summary>
+    public void SetBarColorForDuration(Color color, float duration)
+    {
+        if (energyBar == null) return;
+
+        if (colorTween != null && colorTween.IsActive())
+        {
+            colorTween.Kill();
+        }
+
+        energyBar.color = color;
+        colorTween = DOTween.To(() => color, c => energyBar.color = c, defaultColor, duration)
+            .SetEase(Ease.OutQuad);
+    }
 }

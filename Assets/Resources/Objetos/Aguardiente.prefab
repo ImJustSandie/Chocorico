@@ -156,9 +156,9 @@ MonoBehaviour:
   tier1Sprite: {fileID: 21300000, guid: 9b0582f822d4a7e4481e9d89bdf56ad5, type: 3}
   tier2Sprite: {fileID: 21300000, guid: de7f4c711fdd0284db29775a95231a2c, type: 3}
   tier3Sprite: {fileID: -2036760684232380771, guid: 92e034596640ac647a7c1dd1f5c05257, type: 3}
-  tier1Color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  tier2Color: {r: 0, g: 0, b: 1, a: 1}
-  tier3Color: {r: 0, g: 1, b: 0, a: 1}
+  tier1Color: {r: 0, g: 1, b: 0, a: 1}
+  tier2Color: {r: 1, g: 0.009791564, b: 0, a: 1}
+  tier3Color: {r: 1, g: 0.976174, b: 0, a: 1}
   tier1SlowdownMultiplier: 0.5
   tier1SlowdownDuration: 3
   tier2Duration: 4

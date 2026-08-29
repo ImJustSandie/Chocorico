@@ -92,6 +92,12 @@ public class ScoreManager : MonoBehaviour
     {
         currentScore += points;
         UpdateScoreText();
+
+        // Verificar desbloqueo de skin Golden
+        if (SkinUnlockManager.Instance != null)
+        {
+            SkinUnlockManager.Instance.CheckGoldenUnlock(currentScore);
+        }
     }
 
     private void UpdateScoreText()

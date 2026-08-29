@@ -738,6 +738,9 @@ MonoBehaviour:
   skinDescriptionText: {fileID: 155051245}
   skinIconImage: {fileID: 1271772199}
   gameSceneName: game
+  lockedSkinMaterial: {fileID: 2100000, guid: 264c95be11630f64c8319b35fad884fa, type: 2}
+  playButton: {fileID: 2087186934}
+  unlockConditionText: {fileID: 155051245}
 --- !u!4 &703106303
 Transform:
   m_ObjectHideFlags: 0
@@ -1625,8 +1628,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
@@ -1657,7 +1660,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -81.40509, w: 0}
+  m_margin: {x: 0, y: 0, z: -224.05191, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

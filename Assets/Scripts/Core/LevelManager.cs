@@ -66,6 +66,19 @@ public class LevelManager : MonoBehaviour
         puaMaxInterval = 5f
     };
 
+    [SerializeField] private LevelConfig level4Config = new LevelConfig
+    {
+        wallSlideSpeed = 5f,
+        beltAgainstSpeed = 3f,
+        itemMinSpawnInterval = 1.0f,
+        itemMaxSpawnInterval = 2.0f,
+        positiveProbability = 0.4f,
+        aguardienteMinInterval = 5f,
+        aguardienteMaxInterval = 10f,
+        puaMinInterval = 2f,
+        puaMaxInterval = 5f
+    };
+
     [Header("Temporizador de Nivel")]
     [Tooltip("Tiempo en segundos para avanzar al siguiente nivel automáticamente")]
     [SerializeField] private float timeToNextLevel = 30f;
@@ -96,7 +109,7 @@ public class LevelManager : MonoBehaviour
     {
         get
         {
-            if (currentLevel >= 3) return 1f;
+            if (currentLevel >= 4) return 1f;
             return Mathf.Clamp01(levelTimer / timeToNextLevel);
         }
     }
@@ -109,6 +122,7 @@ public class LevelManager : MonoBehaviour
             {
                 2 => level2Config,
                 3 => level3Config,
+                4 => level4Config,
                 _ => level1Config
             };
         }
@@ -149,7 +163,7 @@ public class LevelManager : MonoBehaviour
 
     void Update()
     {
-        if (timerActive && autoAdvanceLevels && currentLevel < 3)
+        if (timerActive && autoAdvanceLevels && currentLevel < 4)
         {
             levelTimer += Time.deltaTime;
             if (levelTimer >= timeToNextLevel)
@@ -171,7 +185,7 @@ public class LevelManager : MonoBehaviour
 
     public void SetLevel(int level)
     {
-        currentLevel = Mathf.Clamp(level, 1, 3);
+        currentLevel = Mathf.Clamp(level, 1, 4);
         levelTimer = 0f;
         UpdateLevelText();
         OnLevelChanged?.Invoke(currentLevel);
@@ -180,7 +194,7 @@ public class LevelManager : MonoBehaviour
 
     public void AdvanceLevel()
     {
-        if (currentLevel < 3)
+        if (currentLevel < 4)
         {
             currentLevel++;
             levelTimer = 0f;
