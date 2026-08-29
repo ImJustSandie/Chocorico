@@ -25,8 +25,11 @@ public class ScoreManager : MonoBehaviour
     [Tooltip("Texto de la UI donde se muestra la puntuación total obtenida al finalizar la partida")]
     [SerializeField] private TextMeshProUGUI finalScoreText;
 
-    [Tooltip("Texto de la UI donde se muestra la mejor puntuación histórica (opcional)")]
+    [Tooltip("Texto de la UI donde se muestra la mejor puntuación histórica (en menú o Game Over)")]
     [SerializeField] private TextMeshProUGUI highScoreText;
+
+    [Tooltip("Segundo texto de la UI donde se muestra la mejor puntuación histórica (por ejemplo, en la pantalla de Game Over o Menú)")]
+    [SerializeField] private TextMeshProUGUI highScoreText2;
 
     private int currentScore = 0;
     private int highScore = 0;
@@ -65,6 +68,7 @@ public class ScoreManager : MonoBehaviour
     public void LoadHighScore()
     {
         highScore = PlayerPrefs.GetInt(HIGH_SCORE_PREFS_KEY, 0);
+        UpdateHighScoreText();
     }
 
     /// <summary>
@@ -118,6 +122,11 @@ public class ScoreManager : MonoBehaviour
         if (highScoreText != null)
         {
             highScoreText.text = highScore.ToString();
+        }
+
+        if (highScoreText2 != null)
+        {
+            highScoreText2.text = highScore.ToString();
         }
     }
 }
