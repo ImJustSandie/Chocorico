@@ -27,10 +27,6 @@ public class BackgroundManager : MonoBehaviour
         public Color backgroundColor = Color.white;
     }
 
-    [Header("Prefab")]
-    [Tooltip("Prefab decorativo por defecto (SpriteRenderer + script BackgroundDecor). Se usa si el nivel no define uno propio")]
-    [SerializeField] private GameObject decorPrefab;
-
     [Header("Configuración por Nivel")]
     [Tooltip("Sprites, tinte y color de fondo para el nivel 1")]
     [SerializeField] private LevelBackgroundConfig level1 = new LevelBackgroundConfig();
@@ -242,11 +238,14 @@ public class BackgroundManager : MonoBehaviour
     {
         LevelBackgroundConfig config = GetCurrentConfig();
 
-        GameObject prefab = (config.prefab != null) ? config.prefab : decorPrefab;
-        if (prefab == null)
+        GameObject prefab;
+        if (GetCurrentLevel() == 4)
         {
-            Debug.LogWarning("BackgroundManager: Este nivel no tiene prefab propio y no hay 'decorPrefab' general asignado.");
-            return;
+            prefab = new GameObject[] { level1.prefab, level2.prefab, level3.prefab }[Random.Range(0, 3)];
+        }
+        else
+        {
+            prefab = config.prefab;
         }
 
         bool hasSprites = config.sprites != null && config.sprites.Length > 0;

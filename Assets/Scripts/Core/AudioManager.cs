@@ -71,6 +71,15 @@ public class AudioManager : MonoBehaviour
         {
             sfxSource.playOnAwake = false;
         }
+
+        musicMuted = PlayerPrefs.GetInt("MusicMuted", 0) == 1;
+        sfxMuted = PlayerPrefs.GetInt("SfxMuted", 0) == 1;
+
+        if (musicSource != null)
+            musicSource.mute = musicMuted;
+
+        if (sfxSource != null)
+            sfxSource.mute = sfxMuted;
     }
 
     void OnDestroy()
@@ -132,6 +141,7 @@ public class AudioManager : MonoBehaviour
     public void SetMusicMuted(bool muted)
     {
         musicMuted = muted;
+        PlayerPrefs.SetInt("MusicMuted", muted ? 1 : 0);
 
         if (musicSource != null)
             musicSource.mute = muted;
@@ -143,6 +153,7 @@ public class AudioManager : MonoBehaviour
     public void SetSfxMuted(bool muted)
     {
         sfxMuted = muted;
+        PlayerPrefs.SetInt("SfxMuted", muted ? 1 : 0);
 
         if (sfxSource != null)
             sfxSource.mute = muted;

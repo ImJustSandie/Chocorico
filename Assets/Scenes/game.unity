@@ -3270,7 +3270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb5113581ab2b2d4a98fd6d0693ba157, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BackgroundManager
-  decorPrefab: {fileID: 0}
   level1:
     prefab: {fileID: 1750093708991355026, guid: 34a4ca0340b44fb49b99126fdf32c5a3, type: 3}
     sprites: []
@@ -3290,21 +3289,20 @@ MonoBehaviour:
     prefab: {fileID: 0}
     sprites: []
     spriteTintColor: {r: 1, g: 1, b: 1, a: 1}
-    backgroundColor: {r: 1, g: 1, b: 1, a: 1}
+    backgroundColor: {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
   level4DecorColors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  - {r: 0, g: 1, b: 1, a: 1}
-  - {r: 1, g: 0, b: 1, a: 1}
+  - {r: 1, g: 0, b: 0, a: 0.39215687}
+  - {r: 0, g: 1, b: 0, a: 0.39215687}
+  - {r: 0, g: 0, b: 1, a: 0.39215687}
+  - {r: 1, g: 0.92156863, b: 0.015686275, a: 0.39215687}
+  - {r: 0, g: 1, b: 1, a: 0.39215687}
+  - {r: 1, g: 0, b: 1, a: 0.39215687}
   level4BackgroundColors:
   - {r: 0.8, g: 0.2, b: 0.2, a: 1}
   - {r: 0.2, g: 0.8, b: 0.2, a: 1}
-  - {r: 0.2, g: 0.2, b: 0.8, a: 1}
-  - {r: 0.8, g: 0.8, b: 0.2, a: 1}
+  - {r: 0.59989405, g: 0.2, b: 0.8, a: 1}
   - {r: 0.2, g: 0.8, b: 0.8, a: 1}
-  - {r: 0.8, g: 0.2, b: 0.8, a: 1}
+  - {r: 0.7058824, g: 0.7058824, b: 0.7058824, a: 1}
   level4ColorChangeInterval: 5
   minSpawnInterval: 1.5
   maxSpawnInterval: 4
@@ -6603,7 +6601,7 @@ MonoBehaviour:
     aguardienteMaxInterval: 6
     puaMinInterval: 2
     puaMaxInterval: 6
-  timeToNextLevel: 10
+  timeToNextLevel: 30
   autoAdvanceLevels: 1
   levelText: {fileID: 839649647}
   levelPrefix: 'Nivel '
